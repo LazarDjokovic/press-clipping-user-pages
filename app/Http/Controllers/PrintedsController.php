@@ -115,9 +115,14 @@ class PrintedsController extends Controller
         Session::put('search_data',$request->all());
         Session::put('printeds',$printeds);
 
-        //dd(session('search_data'));
+        //dd(\Route::current()->getName());
 
-        return back()->withInput();
+        //if (\Route::current()->getName() == 'printeds_back'){
+            $media = Media::all();
+            return view('printed.index',compact('printeds','media'));
+        //}
+       // else
+            //return back()->withInput();
     }
 
     public function view(Request $request)
@@ -174,5 +179,34 @@ class PrintedsController extends Controller
 
 
         return view('printed.view',compact('printeds_view'));
+    }
+
+    public function back(Request $request)
+    {
+        if($request->session()->has('printeds'))
+            $request->session()->forget('printeds');
+
+        if($request->session()->has('printeds_view'))
+            $request->session()->forget('printeds_view');
+
+        /*if(Session::has('printeds'))
+            Session::forget('printeds');
+
+        if(Session::has('search_data'))
+            Session::forget('search_data');
+
+        if(Session::has('printeds_view'))
+            Session::forget('printeds_view');*/
+
+        $printeds = Printed::search((object)(session('search_data')));
+
+        Session::put('printeds',$printeds);
+
+        //dd(session('search_data'));
+
+        $media = Media::all();
+
+        return view('printed.index',compact('printeds','media'));
+        //return redirect()->route('printeds_search', compact('printeds','media'));
     }
 }

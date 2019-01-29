@@ -27,6 +27,9 @@
                                     <select name="publisher" class="form-control publisher" id="sel2">
                                         <option selected value="svi">Svi</option>
                                         @foreach($media as $oneMedia)
+                                            @if($oneMedia->slug == session('search_data')['publisher'])
+                                                <option value="{{$oneMedia->slug}}" selected>{{$oneMedia->name}}</option>
+                                            @endif
                                             <option value="{{$oneMedia->slug}}">{{$oneMedia->name}}</option>
                                         @endforeach
                                     </select><br/>
