@@ -8,6 +8,7 @@ use App\Media;
 use App\PrintedsRead;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
+use Illuminate\Pagination\Paginator;
 
 class PrintedsController extends Controller
 {
@@ -21,7 +22,7 @@ class PrintedsController extends Controller
         $media = Media::all();
 
 
-        return view('printed.index',compact('media'));
+        return view('printed.first',compact('media'));
     }
 
     /**
@@ -112,14 +113,26 @@ class PrintedsController extends Controller
 
         $printeds = Printed::search($request);
 
+
+
+        /*$printeds = Paginator::make([$printeds, count($printeds), 10]);
+
+        dd($printeds);*/
+
         Session::put('search_data',$request->all());
         Session::put('printeds',$printeds);
+
+        /*$objave = 0;
+
+        for($i=0;$i<count($printeds);$i++){
+            $objave += $printeds[0][$i]->objave;
+        }*/
 
         //dd(\Route::current()->getName());
 
         //if (\Route::current()->getName() == 'printeds_back'){
             $media = Media::all();
-            return view('printed.index',compact('printeds','media'));
+            return view('printed.first',compact('printeds','media'));
         //}
        // else
             //return back()->withInput();

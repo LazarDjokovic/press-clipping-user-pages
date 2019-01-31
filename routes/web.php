@@ -30,3 +30,5 @@ Route::post('/digitals/view','DigitalsController@view');
 
 Route::post('/printeds/back','PrintedsController@back')->name('printeds_back');
 Route::post('/digitals/back','DigitalsController@back')->name('printeds_back');
+
+
