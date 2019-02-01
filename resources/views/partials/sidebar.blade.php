@@ -13,7 +13,15 @@
                 <a href="/digital"><i class="fa fa-globe" style="color:#FFF;"></i> Digitalni mediji</a>
             </li>
             <li class="sub-menu" style="display:none;" id="logout-link">
-                <a href="#">Odjavi se</a>
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
             </li>
         </ul>
         <!-- sidebar menu end-->

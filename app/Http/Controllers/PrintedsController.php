@@ -102,49 +102,29 @@ class PrintedsController extends Controller
         if($request->session()->has('search_data'))
             $request->session()->forget('search_data');
 
-        /*if(Session::has('printeds'))
-            Session::forget('printeds');
-
-        if(Session::has('search_data'))
-            Session::forget('search_data');
-
-        if(Session::has('printeds_view'))
-            Session::forget('printeds_view');*/
-
         $printeds = Printed::search($request);
 
-
-
-        /*$printeds = Paginator::make([$printeds, count($printeds), 10]);
-
-        dd($printeds);*/
 
         Session::put('search_data',$request->all());
         Session::put('printeds',$printeds);
 
-        /*$objave = 0;
-
-        for($i=0;$i<count($printeds);$i++){
-            $objave += $printeds[0][$i]->objave;
-        }*/
-
-        //dd(\Route::current()->getName());
-
         //if (\Route::current()->getName() == 'printeds_back'){
-            $media = Media::all();
-            return view('printed.first',compact('printeds','media'));
+            //$media = Media::all();
+            //return view('printed.first',compact('printeds','media'));
         //}
        // else
-            //return back()->withInput();
+            return back()->withInput();
+
+        //return array($printeds);
     }
 
-    public function view(Request $request)
+    public function view($media_slug, $broj_izdanja, $created_at, $neprocitani)
     {
-        if($request->session()->has('printeds'))
-            $request->session()->forget('printeds');
+        if(\request()->session()->has('printeds'))
+            \request()->session()->forget('printeds');
 
-        if($request->session()->has('printeds_view'))
-            $request->session()->forget('printeds_view');
+        if(\request()->session()->has('printeds_view'))
+            \request()->session()->forget('printeds_view');
 
         /*if(Session::has('printeds'))
             Session::flash('printeds');
@@ -153,14 +133,14 @@ class PrintedsController extends Controller
             Session::flash('printeds_view');*/
 
         $printeds_view = Printed::where([
-            'media_slug' => $request->media_slug,
-            'broj_izdanja' => $request->broj_izdanja,
+            'media_slug' => $media_slug,
+            'broj_izdanja' => $broj_izdanja,
             'company_id' => auth()->user()->company_id,
-            'created_at' => $request->date
+            'created_at' => $created_at
         ])->get()->toArray();
 
 
-        if($request->neprocitani == 1){
+        if($neprocitani == 1){
             $printeds_array = [];
 
             for($i=0; $i<count($printeds_view); $i++){
@@ -178,11 +158,20 @@ class PrintedsController extends Controller
             PrintedsRead::insert($printeds_array);
         }
 
+        $printeds_view = $printeds_view = Printed::where([
+            'media_slug' => $media_slug,
+            'broj_izdanja' => $broj_izdanja,
+            'company_id' => auth()->user()->company_id,
+            'created_at' => $created_at
+        ])->paginate(1);
+
+
+        //dd($printeds_view->links());
 
         //dd(session('search_data'));
         $printeds = Printed::search((object)(session('search_data')));
 
-        //dd($printeds);
+        //dd($printeds_view);
 
         Session::put('printeds', $printeds);
         Session::put('printeds_view', $printeds_view);
@@ -191,7 +180,7 @@ class PrintedsController extends Controller
 
 
 
-        return view('printed.view',compact('printeds_view'));
+        return view('printed.printeds_view',compact('printeds_view'));
     }
 
     public function back(Request $request)

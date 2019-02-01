@@ -9,6 +9,22 @@
 
     <title>Creative - Bootstrap Admin Template</title>
 
+
+    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/bootstrap-theme.css')}}" rel="stylesheet">
+    <link href="{{asset('css/elegant-icons-style.css')}}" rel="stylesheet">
+    <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/owl.carousel.css')}}" rel="stylesheet">
+    <link href="{{asset('css/jquery-jvectormap-1.2.2.css')}}" rel="stylesheet">
+    <link href="{{asset('css/fullcalendar.css')}}" rel="stylesheet">
+    <link href="{{asset('css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('css/style-responsive.css')}}" rel="stylesheet">
+    <link href="{{asset('css/xcharts.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/jquery-ui-1.10.4.min.css')}}" rel="stylesheet">
+
+
+
+
     <!-- Bootstrap CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- bootstrap theme -->
@@ -33,6 +49,15 @@
     <link href="css/xcharts.min.css" rel=" stylesheet">
     <link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="{{asset('js/jquery.js')}}"></script>
+    <script src="{{asset('js/jquery-ui-1.10.4.min.js')}}"></script>
+    <script src="{{asset('js/jquery-1.8.3.min.js')}}"></script>
+    <script src="{{asset('js/jquery-ui-1.9.2.custom.min.js')}}"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui-1.10.4.min.js"></script>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js"></script>
 
     <style>
 

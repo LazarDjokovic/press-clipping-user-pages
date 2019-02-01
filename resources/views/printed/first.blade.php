@@ -13,9 +13,9 @@
         <div class="row" style="margin-top:10px !important;">
             <div class="col-lg-12 text-center" id="search-div">
                 <?php
-                    use Carbon\Carbon;
-                    $carbon = new Carbon();
-                    $carbonFormat = $carbon->format('Y-m-d');
+                use Carbon\Carbon;
+                $carbon = new Carbon();
+                $carbonFormat = $carbon->format('Y-m-d');
                 ?>
                 @if(session('search_data'))
                     <form class="form-inline" action="/printeds/search" method="POST">
@@ -49,7 +49,6 @@
                             @if(session('printeds'))
                                 <?php
                                 $objave = 0;
-
                                 for($i=0;$i<count(session('printeds'));$i++){
                                     $objave += session('printeds')[0][$i]->objave;
                                 }
@@ -98,7 +97,6 @@
                             @if(session('printeds'))
                                 <?php
                                 $objave = 0;
-
                                 for($i=0;$i<count(session('printeds'));$i++){
                                     $objave += session('printeds')[0][$i]->objave;
                                 }
@@ -118,39 +116,86 @@
                 @endif
             </div>
         </div>
+        </div>
     </div>
     <div class="row media-row" style="padding-bottom:15px;">
         @if(session('printeds'))
-            <ul>
+
                 @foreach(session('printeds')[0] as $printed)
-                    <iframe src="http://192.169.189.202/gs/public/javascripts/archive/alo~2019-01-24~3919~61746.pdf=2" id="media-image"></iframe>
-                    <h4>{{$printed->media_slug}} - Izdanje {{$printed->broj_izdanja}}</h4>
-                    <p>Objavljeno: {{$printed->created_at}}</p>
-                    <p>
-                        <?php
-                        $neprocitani =  $printed->objave - $printed->procitani;
-                        ?>
-                        @if($neprocitani > 0)
-                            Neprocitane objave: {{$neprocitani}}
-                        @endif
-                    </p>
-                    <p>
-                        <form action="/printeds/view" method="POST">
-                            @csrf
-                            <input type="hidden" name="media_slug" value="{{$printed->media_slug}}"/>
-                            <input type="hidden" name="broj_izdanja" value="{{$printed->broj_izdanja}}"/>
-                            <input type="hidden" name="date" value="{{$printed->created_at}}"/>
+                    <div class="col-sm-6 col-md-3 col-lg-3 media-image text-center">
+                        <img src="/images/logo.png" style="max-width:100%;max-height:100%;" id="img-logo">
+                        <h4>{{$printed->media_slug}} - Izdanje {{$printed->broj_izdanja}}</h4>
+                        <p>Objave: {{$printed->objave}}</p>
+                        <p>Objavljeno: {{$printed->created_at}}</p>
+                        <p>
+                            <?php
+                            $neprocitani =  $printed->objave - $printed->procitani;
+                            ?>
                             @if($neprocitani > 0)
-                                <input type="hidden" name="neprocitani" value="1"/>
+                                Neprocitane objave: {{$neprocitani}}
                             @endif
-                            <button type="submit" class="btn btn-primary">Primary</button>
-                        </form>
-                    </p>
+                        </p>
+
+                        @if($neprocitani > 0)
+                            <a href="/printeds/view/{{$printed->media_slug}}/{{$printed->broj_izdanja}}/{{$printed->created_at}}/1">Procitaj objave</a>
+                        @else
+                            <a href="/printeds/view/{{$printed->media_slug}}/{{$printed->broj_izdanja}}/{{$printed->created_at}}/0">Procitaj objave</a>
+                        @endif
+
+                    </div>
                 @endforeach
-            </ul>
+
+
         @endif
 
 
     </div>
+    <script>
+
+        $(document).ready(function () {
+
+           /* $( "#search_printeds" ).click(function() {
+
+                var fromDate = $('#fromDate').val();
+                var toDate = $('#toDate').val();
+
+
+                var token =  $('input[name="_token"]').attr('value');
+
+                var publisher = $('#publisher').val();
+
+
+
+
+
+                $.ajax({
+                    type:'POST',
+                    url:'/printeds/search',
+                    data:{
+                        'from': fromDate,
+                        'to' : toDate,
+                        'publisher' : publisher
+                    },
+                    headers:{
+                        'X-CSRF-Token' : token,
+                        'accept': 'application/json',
+                        'Access-Control-Allow-Headers':'*'
+                    },
+                    success:function (data) {
+                        console.log(data);
+                        //$('.mediji_izlistavanje').html(data);
+                        //console.log(data);
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Kontaktirajte programere, nesto nije u redu.');
+                    }
+                })
+
+            });*/
+
+
+
+        })
+    </script>
     <!--/row-->
 @endsection

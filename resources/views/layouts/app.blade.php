@@ -19,11 +19,18 @@
     @include('partials.footer')
 
     <!-- javascripts -->
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery-ui-1.10.4.min.js"></script>
-    <script src="js/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js"></script>
+
     <!-- bootstrap -->
+
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/jquery.scrollTo.min.js')}}"></script>
+    <script src="{{asset('js/jquery.nicescroll.js')}}"></script>
+    <script src="{{asset('js/jquery.sparkline.js')}}"></script>
+    <script src="{{asset('js/jquery-easy-pie-chart/jquery.easy-pie-chart.js')}}"></script>
+    <script src="{{asset('js/owl.carousel.js')}}"></script>
+    <script src="{{asset('js/fullcalendar.min.js')}}"></script>
+    <script src="{{asset('js/jquery.slimscroll.min.js')}}"></script>
+
     <script src="js/bootstrap.min.js"></script>
     <!-- nice scroll -->
     <script src="js/jquery.scrollTo.min.js"></script>

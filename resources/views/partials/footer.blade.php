@@ -9,7 +9,10 @@
         </div>
         <div class="col-xs-6 col-sm-3 text-left">
             <nav aria-label="..." class="display:inline;margin-left:90px;" class="pull-left">
-                <ul class="pagination list-inline" style="padding:0px !important;margin:0px !important;">
+                @if(session('printeds_view'))
+
+                @endif
+                <!-- <ul class="pagination list-inline" style="padding:0px !important;margin:0px !important;">
                     <li class="page-item"><a class="page-link" href="#">10</a></li>
 
                     <li class="page-item active">
@@ -18,9 +21,10 @@
 					<span class="sr-only">(current)</span>
 				  </span>
                     </li>
-                    <li class="page-item"><a class="page-link" href="#">30</a></li>
 
-                </ul>
+                        <li class="page-item"><a class="page-link" href="#">30</a></li>
+
+                </ul> -->
             </nav>
         </div>
     </div>
