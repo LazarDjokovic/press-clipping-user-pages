@@ -26,9 +26,9 @@ Route::post('/printeds/search','PrintedsController@search')->name('printeds_sear
 Route::post('/digitals/search','DigitalsController@search')->name('digitals_search');
 
 Route::get('/printeds/view/{media_slug}/{broj_izdanja}/{created_at}/{neprocitani?}','PrintedsController@view');
-Route::post('/digitals/view','DigitalsController@view');
+Route::get('/digitals/view/{media_slug}/{created_at}/{neprocitani?}','DigitalsController@view');
 
 Route::post('/printeds/back','PrintedsController@back')->name('printeds_back');
-Route::post('/digitals/back','DigitalsController@back')->name('printeds_back');
+Route::post('/digitals/back','DigitalsController@back')->name('digitals_back');
 
 

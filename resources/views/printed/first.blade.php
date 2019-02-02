@@ -4,7 +4,7 @@
     <div class="jumbotron" style="background-color:#EEF1F8;padding-top:0px !important; margin-bottom:0px !important;padding-bottom:0px">
         <div class="row">
             <div class="col-sm-12">
-                <h3 style="padding:15px;">Digitalne novosti</h3>
+                <h3 style="padding:15px;">Štampane novosti</h3>
             </div>
 
         </div>
@@ -18,7 +18,7 @@
                 $carbonFormat = $carbon->format('Y-m-d');
                 ?>
                 @if(session('search_data'))
-                    <form class="form-inline" action="/printeds/search" method="POST">
+                    <form class="form-inline" action="{{route('printeds_search')}}" method="POST">
                         @csrf
                         <div class="form-group block">
 
@@ -49,7 +49,7 @@
                             @if(session('printeds'))
                                 <?php
                                 $objave = 0;
-                                for($i=0;$i<count(session('printeds'));$i++){
+                                for($i=0;$i<count(session('printeds')[0]);$i++){
                                     $objave += session('printeds')[0][$i]->objave;
                                 }
                                 ?>
@@ -66,7 +66,7 @@
                         </div>
                     </form>
                 @else
-                    <form class="form-inline" action="/printeds/search" method="POST">
+                    <form class="form-inline" action="{{route('printeds_search')}}" method="POST">
                         @csrf
                         <div class="form-group block">
 
@@ -127,19 +127,13 @@
                         <h4>{{$printed->media_slug}} - Izdanje {{$printed->broj_izdanja}}</h4>
                         <p>Objave: {{$printed->objave}}</p>
                         <p>Objavljeno: {{$printed->created_at}}</p>
-                        <p>
-                            <?php
+                        <?php
                             $neprocitani =  $printed->objave - $printed->procitani;
-                            ?>
-                            @if($neprocitani > 0)
-                                Neprocitane objave: {{$neprocitani}}
-                            @endif
-                        </p>
-
+                        ?>
                         @if($neprocitani > 0)
-                            <a href="/printeds/view/{{$printed->media_slug}}/{{$printed->broj_izdanja}}/{{$printed->created_at}}/1">Procitaj objave</a>
+                            <a href="/printeds/view/{{$printed->media_slug}}/{{$printed->broj_izdanja}}/{{$printed->created_at}}/1" style="color:#FF4500;">Pročitaj objave ({{$objave}})</a>
                         @else
-                            <a href="/printeds/view/{{$printed->media_slug}}/{{$printed->broj_izdanja}}/{{$printed->created_at}}/0">Procitaj objave</a>
+                            <a href="/printeds/view/{{$printed->media_slug}}/{{$printed->broj_izdanja}}/{{$printed->created_at}}/0">Pročitaj objave</a>
                         @endif
 
                     </div>

@@ -10,6 +10,14 @@
         </div>
         <hr style="background-color:black;">
     </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <form action="{{route('printeds_back')}}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-primary">Nazad</button>
+            </form>
+        </div>
+    </div>
     <div class="row media-row" style="padding-bottom:15px;">
         @if(session('printeds_view'))
 

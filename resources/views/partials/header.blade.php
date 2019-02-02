@@ -8,27 +8,29 @@
         <ul class="nav pull-right top-menu">
             <!-- alert notification end-->
             <!-- user login dropdown start-->
-            <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            @if(Auth::user())
+                <li class="dropdown-item">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 
-                    <span class="username">Jenifer Smith</span>
-                    <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu extended logout">
-                    <div class="log-arrow-up"></div>
-                    <li class="eborder-top">
-                        <a class="dropdown-item" style="background-color: #FFF !important; color: #000;" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
+                        <span class="username">{{auth()->user()->name}} {{auth()->user()->last_name}}</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu extended logout">
+                        <div class="log-arrow-up"></div>
+                        <li class="eborder-top">
+                            <a class="dropdown-item" style="background-color: #FFF !important; color: #000;" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                {{ __('Odjavi se') }}
+                            </a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </li>
-                </ul>
-            </li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            @endif
             <!-- user login dropdown end -->
         </ul>
         <!-- notificatoin dropdown end-->

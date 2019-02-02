@@ -93,6 +93,7 @@ class PrintedsController extends Controller
 
     public function search(Request $request)
     {
+
         if($request->session()->has('printeds'))
             $request->session()->forget('printeds');
 
@@ -108,13 +109,18 @@ class PrintedsController extends Controller
         Session::put('search_data',$request->all());
         Session::put('printeds',$printeds);
 
-        //if (\Route::current()->getName() == 'printeds_back'){
-            //$media = Media::all();
-            //return view('printed.first',compact('printeds','media'));
-        //}
-       // else
-            return back()->withInput();
+        $media = Media::all();
+       /* if (\Route::current()->getName() == 'printeds_back'){
 
+            return view('printed.first',compact('printeds','media'));
+        }
+        else{
+
+            return view('printed.first',compact('printeds','media'));
+            //return back()->withInput();
+        }*/
+
+        return view('printed.first',compact('printeds','media'));
         //return array($printeds);
     }
 
@@ -208,7 +214,7 @@ class PrintedsController extends Controller
 
         $media = Media::all();
 
-        return view('printed.index',compact('printeds','media'));
+        return view('printed.first',compact('printeds','media'));
         //return redirect()->route('printeds_search', compact('printeds','media'));
     }
 }
