@@ -17,6 +17,10 @@
 .media-row{
 	margin-bottom: 40px !important;
 }
+
+.pagination{
+    margin: 0px !important;
+}
     
 
 @media only screen and (max-width: 767px) {

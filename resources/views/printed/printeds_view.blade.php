@@ -40,6 +40,9 @@
                             <div class="col">
                                 <?php
                                     $first_text = substr($printed['text'],0,500);
+                                    if($first_text != strip_tags($first_text)){
+                                        $first_text = substr($printed['text'],0,600);
+                                    }
                                     echo $first_text;
                                 ?>
                                 <div class="collapse multi-collapse" id="multiCollapseExample{{$printed['id']}}">
