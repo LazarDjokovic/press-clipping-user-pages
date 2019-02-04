@@ -109,8 +109,8 @@
 
                         </div>
                         <div class="form-group" style="margin-top:10px;">
-                            <i class="fa fa-table fa-2x" aria-hidden="true"></i>
-                            <i class="fa fa-table fa-2x" aria-hidden="true"></i>
+                            <!--<i class="fa fa-table fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-table fa-2x" aria-hidden="true"></i>-->
                         </div>
                     </form>
                 @endif
@@ -131,7 +131,7 @@
                             $neprocitani =  $printed->objave - $printed->procitani;
                         ?>
                         @if($neprocitani > 0)
-                            <a href="/printeds/view/{{$printed->media_slug}}/{{$printed->broj_izdanja}}/{{$printed->created_at}}/1" style="color:#FF4500;">Pročitaj objave ({{$objave}})</a>
+                            <a href="/printeds/view/{{$printed->media_slug}}/{{$printed->broj_izdanja}}/{{$printed->created_at}}/1" style="color:#FF4500;">Pročitaj objave ({{$neprocitani}})</a>
                         @else
                             <a href="/printeds/view/{{$printed->media_slug}}/{{$printed->broj_izdanja}}/{{$printed->created_at}}/0">Pročitaj objave</a>
                         @endif

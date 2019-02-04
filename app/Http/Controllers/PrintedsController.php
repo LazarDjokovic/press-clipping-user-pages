@@ -169,7 +169,7 @@ class PrintedsController extends Controller
             'broj_izdanja' => $broj_izdanja,
             'company_id' => auth()->user()->company_id,
             'created_at' => $created_at
-        ])->paginate(1);
+        ])->paginate(10);
 
 
         //dd($printeds_view->links());

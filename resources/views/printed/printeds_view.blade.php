@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="jumbotron" style="background-color:#EEF1F8;padding-top:0px !important; margin-bottom:0px !important;padding-bottom:0px">
         <div class="row">
             <div class="col-sm-12">
-                <h3 style="padding:15px;">Digitalne novosti</h3>
+                <h3 style="padding:15px;">Digitalne novosti <strong>{{session('printeds_view')[0]->media_slug}} / Izdanje {{session('printeds_view')[0]->broj_izdanja}} / {{session('printeds_view')[0]->created_at->format('Y-m-d')}}</strong></h3>
             </div>
 
         </div>
@@ -18,21 +19,54 @@
             </form>
         </div>
     </div>
-    <div class="row media-row" style="padding-bottom:15px;">
+    <div class="row media-row" style="padding-bottom:15px;margin-left: 0px !important; margin-right: 0px !important;">
         @if(session('printeds_view'))
 
             @foreach(session('printeds_view') as $printed)
-                <div class="col-sm-6 col-md-3 col-lg-3 media-image text-center">
-                    <img src="/images/logo.png" style="max-width:100%;max-height:100%;" id="img-logo">
-                    <h4>{{$printed['media_slug']}} - Izdanje {{$printed['broj_izdanja']}}</h4>
-                    <p>Objavljeno: {{$printed['text']}}</p>
-                    <p>Objavljeno: {{$printed['created_at']}}</p>
+                <div class="col-xs-12">
+                    <div class="row" style="margin-left: 0px !important; margin-right: 0px !important;">
+                        <div class="col-xs-10">
+                            <h1>{{$printed['naslov']}}</h1>
+                            <h4>{{$printed['podnaslov']}}</h4>
+                        </div>
+                        <div class="col-xs-2">
+                            <img src="/images/logo.png" style="height:100px; width:100px;">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                        <h4>Nađenje klučne reči: {{$printed['found_keywords']}}</h4>
+                        <div class="row" style="margin-left: 0px !important; margin-right: 0px !important;">
+                            <div class="col">
+                                <?php
+                                    $first_text = substr($printed['text'],0,500);
+                                    echo $first_text;
+                                ?>
+                                <div class="collapse multi-collapse" id="multiCollapseExample{{$printed['id']}}">
+                                    <div class="card card-body">
+                                        <?php
+                                            $second_text = substr($printed['text'],501);
+                                            echo $second_text;
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <br/>
+                        <div class="row" style="margin-left: 0px !important; margin-right: 0px !important;">
+                            <div class="col-xs-12">
+                            <button class="btn btn-primary pull-right" type="button" data-toggle="collapse" data-target="#multiCollapseExample{{$printed['id']}}" aria-expanded="false" aria-controls="multiCollapseExample2">Pročitaj više</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             @endforeach
-
-            {{session('printeds_view')->links()}}
 
         @endif
     </div>
     <!--/row-->
 @endsection
+<script>
+
+</script>
