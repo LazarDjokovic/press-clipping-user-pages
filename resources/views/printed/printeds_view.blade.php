@@ -5,7 +5,7 @@
     <div class="jumbotron" style="background-color:#EEF1F8;padding-top:0px !important; margin-bottom:0px !important;padding-bottom:0px">
         <div class="row">
             <div class="col-sm-12">
-                <h3 style="padding:15px;">Digitalne novosti <strong>{{session('printeds_view')[0]->media_slug}} / Izdanje {{session('printeds_view')[0]->broj_izdanja}} / {{session('printeds_view')[0]->created_at->format('Y-m-d')}}</strong></h3>
+                <h3 style="padding:15px;">Štampane novosti <strong>{{session('printeds_view')[0]->media_slug}} / Izdanje {{session('printeds_view')[0]->broj_izdanja}} / {{session('printeds_view')[0]->created_at->format('Y-m-d')}}</strong></h3>
             </div>
 
         </div>
@@ -19,6 +19,18 @@
             </form>
         </div>
     </div>
+    <style>
+        a {
+            color: #0254EB
+        }
+        a.morelink {
+            text-decoration: none;
+            outline: none;
+        }
+        .morecontent span {
+            display: none;
+        }
+    </style>
     <div class="row media-row" style="padding-bottom:15px;margin-left: 0px !important; margin-right: 0px !important;">
         @if(session('printeds_view'))
 
@@ -35,32 +47,18 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                        <h4>Nađenje klučne reči: {{$printed['found_keywords']}}</h4>
-                        <div class="row" style="margin-left: 0px !important; margin-right: 0px !important;">
-                            <div class="col">
+                            <h4>Nađenje klučne reči: {{$printed['found_keywords']}}</h4>
+
+
+                            <div class="comment more">
                                 <?php
-                                    $first_text = substr($printed['text'],0,500);
-                                    if($first_text != strip_tags($first_text)){
-                                        $first_text = substr($printed['text'],0,600);
-                                    }
-                                    echo $first_text;
+                                    //$text = explode('</div>',$printed['text']);
+                                    //echo $text[1];
+                                    echo $printed['new_text'];
                                 ?>
-                                <div class="collapse multi-collapse" id="multiCollapseExample{{$printed['id']}}">
-                                    <div class="card card-body">
-                                        <?php
-                                            $second_text = substr($printed['text'],501);
-                                            echo $second_text;
-                                        ?>
-                                    </div>
-                                </div>
                             </div>
-                        </div>
-                        </div>
-                        <br/>
-                        <div class="row" style="margin-left: 0px !important; margin-right: 0px !important;">
-                            <div class="col-xs-12">
-                            <button class="btn btn-primary pull-right" type="button" data-toggle="collapse" data-target="#multiCollapseExample{{$printed['id']}}" aria-expanded="false" aria-controls="multiCollapseExample2">Pročitaj više</button>
-                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -69,7 +67,36 @@
         @endif
     </div>
     <!--/row-->
-@endsection
-<script>
+    <script>
+        $(document).ready(function () {
+            var chars = 500;
+            var moretext = "<br/><button type=\"button\" class=\"btn btn-primary\">Prikaži više</button>";
+            var lesstext = "<br/><button type=\"button\" class=\"btn btn-primary\">Prikaži manje</button>";
+            $('.more').each(function () {
+                var content = $(this).html();
+                if (content.length > chars) {
 
-</script>
+                    var visibleText = content.substr(0, chars);
+
+                    var formated = '<div>' + visibleText + '<span style="color:#000">...</span></div><div class="more content" style="display:none">' + content + '</div><a href="#" class="morelink">' + moretext + '</a></span>';
+
+                    $(this).html(formated);
+                }
+
+            });
+
+            $(".morelink").click(function () {
+                if ($(this).hasClass("less")) {
+                    $(this).removeClass("less");
+                    $(this).html(moretext);
+                } else {
+                    $(this).addClass("less");
+                    $(this).html(lesstext);
+                }
+                $(this).prev('.content').prev().toggle();
+                $(this).prev().toggle();
+                return false;
+            });
+        });
+    </script>
+@endsection
