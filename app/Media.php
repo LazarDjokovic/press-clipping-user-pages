@@ -10,5 +10,9 @@ class Media extends Model
         'name', 'slug'
     ];
 
+    public function printeds()
+    {
+        return  $this->belongsTo(Printed::class,'media_slug','slug');
+    }
 
 }

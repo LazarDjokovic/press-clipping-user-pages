@@ -23,6 +23,11 @@ class Printed extends Model
         return  $this->hasMany(EditorApprovedPrinted::class);
     }
 
+    public function media()
+    {
+        return  $this->belongsTo(Media::class,'slug','media_slug');
+    }
+
     public static function getPrintedByCompany($request)
     {
         return Printed::where([

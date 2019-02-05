@@ -32,3 +32,16 @@ Route::post('/printeds/back','PrintedsController@back')->name('printeds_back');
 Route::post('/digitals/back','DigitalsController@back')->name('digitals_back');
 
 
+
+
+
+
+
+
+
+
+//Testing routes
+Route::get('/test/two_latest_news_view','TestController@two_latest_news_view');
+Route::post('/test/two_latest_news','TestController@two_latest_news');
+
+
