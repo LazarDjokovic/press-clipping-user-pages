@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class Printed extends Model
 {
@@ -38,6 +39,7 @@ class Printed extends Model
 
     public static function search($request)
     {
+        $now = Carbon::now();
         if($request->publisher == 'svi'){
             $printeds = DB::table('printeds')
                 ->join('companies', 'companies.id', '=', 'printeds.company_id')
@@ -46,8 +48,9 @@ class Printed extends Model
                 //->select('media_slug', 'companies.name AS company_name', 'printeds.created_at AS created_at', 'broj_izdanja', 'company_id', 'original_src')
                 ->where([
                     'printeds.stage' => 31,
-                    'company_id' => auth()->user()->company_id,
+                    'company_id' => auth()->user()->company_id
                 ])
+                ->where('printeds.created_at','<=', $now)
                 ->whereBetween('printeds.created_at',[$request->from, $request->to])
                 ->groupBy('media_slug', 'printeds.created_at', 'printeds.stage', 'broj_izdanja', 'company_id', 'original_src', 'companies.name')
                 //->having('company_name > 0')
@@ -81,6 +84,7 @@ class Printed extends Model
                     'company_id' => auth()->user()->company_id,
                     'printeds.media_slug' => $request->publisher
                 ])
+                ->where('printeds.created_at','<=', $now)
                 ->whereBetween('printeds.created_at',[$request->from, $request->to])
                 ->groupBy('media_slug', 'printeds.created_at', 'printeds.stage', 'broj_izdanja', 'company_id', 'original_src', 'companies.name')
                 //->having('company_name > 0')

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use http\Env\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -34,7 +35,7 @@ class Digital extends Model
 
     public static function search($request)
     {
-
+        $now = Carbon::now();
         /*if($request->publisher == 'svi'){
             $digitals = DB::select("SELECT media_slug, count(*) as objave, companies.name as company_name, digitals.created_at as created_at, company_id
                                   FROM digitals 
@@ -78,14 +79,15 @@ class Digital extends Model
             $digitals = DB::table('digitals')
                 ->join('companies', 'companies.id', '=', 'digitals.company_id')
                 //->selectRaw('*, count(*) AS objave')
-                ->select(DB::raw(" media_slug, count(*) as objave, companies.name as company_name, digitals.created_at as created_at, company_id, original_src"))
+                ->select(DB::raw(" media_slug, count(*) as objave, companies.name as company_name, digitals.created_at as created_at, company_id, link_src"))
                 //->select('media_slug', 'companies.name AS company_name', 'printeds.created_at AS created_at', 'broj_izdanja', 'company_id', 'original_src')
                 ->where([
                     'digitals.stage' => 31,
                     'company_id' => auth()->user()->company_id,
                 ])
+                ->where('digitals.created_at','<=', $now)
                 ->whereBetween('digitals.created_at',[$request->from, $request->to])
-                ->groupBy('media_slug', 'digitals.created_at', 'digitals.stage', 'company_id', 'original_src', 'companies.name')
+                ->groupBy('media_slug', 'digitals.created_at', 'digitals.stage', 'company_id', 'link_src', 'companies.name')
                 //->having('company_name > 0')
                 ->havingRaw("count(*) > 0")
                 ->get();
@@ -110,15 +112,16 @@ class Digital extends Model
             $digitals = DB::table('digitals')
                 ->join('companies', 'companies.id', '=', 'digitals.company_id')
                 //->selectRaw('*, count(*) AS objave')
-                ->select(DB::raw(" media_slug, count(*) as objave, companies.name as company_name, digitals.created_at as created_at, company_id, original_src"))
+                ->select(DB::raw(" media_slug, count(*) as objave, companies.name as company_name, digitals.created_at as created_at, company_id, link_src"))
                 //->select('media_slug', 'companies.name AS company_name', 'printeds.created_at AS created_at', 'broj_izdanja', 'company_id', 'original_src')
                 ->where([
                     'digitals.stage' => 31,
                     'company_id' => auth()->user()->company_id,
                     'digitals.media_slug' => $request->publisher
                 ])
+                ->where('digitals.created_at','<=', $now)
                 ->whereBetween('digitals.created_at',[$request->from, $request->to])
-                ->groupBy('media_slug', 'digitals.created_at', 'digitals.stage', 'company_id', 'original_src', 'companies.name')
+                ->groupBy('media_slug', 'digitals.created_at', 'digitals.stage', 'company_id', 'link_src', 'companies.name')
                 //->having('company_name > 0')
                 ->havingRaw("count(*) > 0")
                 //->paginate(2);
@@ -126,7 +129,7 @@ class Digital extends Model
 
             $read = [];
             for ($i = 0; $i < count($digitals); $i++){
-                $read[$i] = DB::select("SELECT COUNT(DISTINCT printed_id) as procitani FROM digitals_read WHERE user_id = '".auth()->user()->id."' AND company_id = '".auth()->user()->company_id."' AND media_slug = '".$digitals[$i]->media_slug."' AND printeds_read.created_at  BETWEEN '".$request->from."' AND '".$request->to."'");
+                $read[$i] = DB::select("SELECT COUNT(DISTINCT digital_id) as procitani FROM digitals_read WHERE user_id = '".auth()->user()->id."' AND company_id = '".auth()->user()->company_id."' AND media_slug = '".$digitals[$i]->media_slug."' AND printeds_read.created_at  BETWEEN '".$request->from."' AND '".$request->to."'");
                 $digitals[$i]->procitani = $read[$i][0]->procitani;
             }
 
@@ -141,6 +144,9 @@ class Digital extends Model
                                   GROUP BY media_slug, printeds.created_at, printeds.stage, broj_izdanja, company_id, company_name, original_src HAVING count(*) > 0");*/
         }
 
+
+
+        dd($digitals);
         return array($digitals);
     }
 }
