@@ -6,6 +6,7 @@ use App\Printed;
 use Illuminate\Http\Request;
 use App\Media;
 use App\PrintedsRead;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
@@ -132,18 +133,30 @@ class PrintedsController extends Controller
         if(\request()->session()->has('printeds_view'))
             \request()->session()->forget('printeds_view');
 
+        $created_at_from = $created_at . ' 00:00:00';
+        $created_at_to = $created_at . ' 23:59:59';
+
         /*if(Session::has('printeds'))
             Session::flash('printeds');
 
         if(Session::has('printeds_view'))
             Session::flash('printeds_view');*/
 
-        $printeds_view = Printed::where([
-            'media_slug' => $media_slug,
-            'broj_izdanja' => $broj_izdanja,
-            'company_id' => auth()->user()->company_id,
-            'created_at' => $created_at
-        ])->get()->toArray();
+        //dd($created_at);
+
+        /*$printeds_view = Printed::where([
+                'media_slug' => $media_slug,
+                'broj_izdanja' => $broj_izdanja,
+                'company_id' => auth()->user()->company_id
+            ])
+            ->whereBetween('created_at',[$created_at . ' 00:00:00', $created_at, ' 23:59:59'])
+            ->get()->toArray();*/
+
+        $printeds_view = DB::select('SELECT *, DATE(created_at) as created_at FROM printeds WHERE media_slug = "'.$media_slug.'" 
+                                            AND broj_izdanja = "'.$broj_izdanja.'" AND company_id = "'.auth()->user()->company_id.'" 
+                                            AND created_at BETWEEN "'.$created_at_from.'" AND "'.$created_at_to.'";');
+
+        //dd($printeds_view);
 
 
         if($neprocitani == 1){
@@ -152,11 +165,11 @@ class PrintedsController extends Controller
             for($i=0; $i<count($printeds_view); $i++){
                 $printeds_array[$i] = [
                     'user_id' => auth()->user()->id,
-                    'media_slug' => $printeds_view[$i]['media_slug'],
-                    'broj_izdanja' => $printeds_view[$i]['broj_izdanja'],
-                    'company_id' => $printeds_view[$i]['company_id'],
-                    'printed_id' => $printeds_view[$i]['id'],
-                    'created_at' => $printeds_view[$i]['created_at'],
+                    'media_slug' => $printeds_view[$i]->media_slug,
+                    'broj_izdanja' => $printeds_view[$i]->broj_izdanja,
+                    'company_id' => $printeds_view[$i]->company_id,
+                    'printed_id' => $printeds_view[$i]->id,
+                    'created_at' => $printeds_view[$i]->created_at,
                     'updated_at' => Carbon::now()
                 ];
             }
@@ -164,13 +177,16 @@ class PrintedsController extends Controller
             PrintedsRead::insert($printeds_array);
         }
 
-        $printeds_view = $printeds_view = Printed::where([
-            'media_slug' => $media_slug,
-            'broj_izdanja' => $broj_izdanja,
-            'company_id' => auth()->user()->company_id,
-            'created_at' => $created_at
-        ])->paginate(10);
+        $printeds_view_session =  Printed::where([
+                'media_slug' => $media_slug,
+                'broj_izdanja' => $broj_izdanja,
+                'company_id' => auth()->user()->company_id
+            ])
+            ->whereBetween('created_at',[$created_at_from,$created_at_to])
+            ->paginate(10);
 
+
+        //dd($printeds_view_session);
 
         //dd($printeds_view->links());
 
@@ -180,7 +196,7 @@ class PrintedsController extends Controller
         //dd($printeds_view);
 
         Session::put('printeds', $printeds);
-        Session::put('printeds_view', $printeds_view);
+        Session::put('printeds_view', $printeds_view_session);
 
         //dd(session('printeds'));
 
