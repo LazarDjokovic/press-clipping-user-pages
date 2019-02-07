@@ -53,6 +53,7 @@
                                     $objave += session('printeds')[0][$i]->objave;
                                 }
                                 ?>
+
                                 <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: {{$objave}}</h3>
                             @else
                                 <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: 0</h3>
@@ -122,18 +123,17 @@
         @if(session('printeds'))
 
                 @foreach(session('printeds')[0] as $printed)
-                    <div class="col-sm-6 col-md-3 col-lg-3 media-image text-center">
-                        <img src="/images/book.jpg" style="max-width:100%;max-height:100%;" id="img-logo">
+                    <div class="col-sm-6 col-md-2 col-lg-2 media-image text-center" style="margin-top: 40px;">
+                        <img width="200px" src="/images/book.jpg" style="max-width:100%;max-height:100%; border-radius: 5px;" id="img-logo">
                         <h4>{{$printed->media_slug}} - Izdanje {{$printed->broj_izdanja}}</h4>
-                        <p>Objave: {{$printed->objave}}</p>
                         <p>Objavljeno: {{$printed->created_at}}</p>
                         <?php
                             $neprocitani =  $printed->objave - $printed->procitani;
                         ?>
                         @if($neprocitani > 0)
-                            <a href="/printeds/view/{{$printed->media_slug}}/{{$printed->broj_izdanja}}/{{$printed->created_at}}/1" style="color:#FF4500;">Pročitaj objave ({{$neprocitani}})</a>
+                            <a href="/printeds/view/{{$printed->media_slug}}/{{$printed->broj_izdanja}}/{{$printed->created_at}}/1" style="color:#FFAB00;">Nepročitane objave ({{$neprocitani}})</a>
                         @else
-                            <a href="/printeds/view/{{$printed->media_slug}}/{{$printed->broj_izdanja}}/{{$printed->created_at}}/0">Pročitaj objave</a>
+                            <a href="/printeds/view/{{$printed->media_slug}}/{{$printed->broj_izdanja}}/{{$printed->created_at}}/0">Sve objave pročitane({{ $printed->objave }})</a>
                         @endif
 
                     </div>
