@@ -132,9 +132,9 @@
                     $neprocitani =  $printed->objave - $printed->procitani;
                     ?>
                     @if($neprocitani > 0)
-                        <a href="/digitals/view/{{$printed->media_slug}}/{{$printed->created_at}}/1" style="color:#FFAB00;">Nepročitane objave ({{$neprocitani}})</a>
+                        <a href="/digitals/view/{{$printed->media_slug}}/{{$printed->created_at}}/{{$neprocitani}}/1" style="color:#FFAB00;">Nepročitane objave ({{$neprocitani}})</a>
                     @else
-                        <a href="/digitals/view/{{$printed->media_slug}}/{{$printed->created_at}}/0">Sve objave pročitane({{ $printed->objave }})</a>
+                        <a href="/digitals/view/{{$printed->media_slug}}/{{$printed->created_at}}/{{$neprocitani}}/0">Sve objave pročitane({{ $printed->objave }})</a>
                     @endif
 
                 </div>

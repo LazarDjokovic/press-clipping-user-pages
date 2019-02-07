@@ -59,7 +59,12 @@
                                 ?>
                             </div>
                             <div class="buttons_action">
-                                <button style="margin-right:15px" type="button" class="btn btn-secondary pull-right">Štampaj PDF</button>
+                                <form class="form-group" action="/izdvojiPDF" method="POST">
+                                    @csrf
+                                    <input type="hidden"  name="media_id" value="{{ $printed['id'] }}" />
+                                    <input type="hidden" name="pressType" value="stampani" />
+                                    <button style="margin-right:15px" type="submit" class="btn btn-secondary pull-right">Štampaj PDF</button>
+                                </form>
                                 <input style="width:200px" type="text" placeholder="Unesi imejl adresu" class="pull-left form-control" />
                                 <button type="button" style="margin-left:20px" class="btn pull-left">Pošalji mejl</button>
                             </div>

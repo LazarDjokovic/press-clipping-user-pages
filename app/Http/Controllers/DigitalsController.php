@@ -128,7 +128,7 @@ class DigitalsController extends Controller
             //return back()->withInput();
     }
 
-    public function view($media_slug, $created_at, $neprocitani)
+    public function view($media_slug, $created_at, $neprocitane_objave, $neprocitani)
     {
         $now = Carbon::now()->format('Y:m:d H:i:s');
 
@@ -141,7 +141,11 @@ class DigitalsController extends Controller
         $created_at_from = $created_at . ' 00:00:00';
         $created_at_to = $created_at . ' 23:59:59';
 
+        abs($neprocitane_objave);
+        dd($neprocitane_objave);
         if($neprocitani == 1){
+
+            dd($neprocitane_objave);
             $digitals_view = DB::select('SELECT *, DATE(created_at) as created_at FROM digitals WHERE media_slug = "'.$media_slug.'" 
                                             AND company_id = "'.auth()->user()->company_id.'"
                                             AND created_at <= "'.$now.'"
