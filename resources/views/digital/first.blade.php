@@ -49,7 +49,7 @@
                             @if(session('digitals'))
                                 <?php
                                 $objave = 0;
-                                for($i=0;$i<count(session('digitals')[0]);$i++){
+                                for($i=0;$i<=count(session('digitals')[0]);$i++){
                                     $objave += session('digitals')[0][$i]->objave;
                                 }
                                 ?>
@@ -97,7 +97,7 @@
                             @if(session('digitals'))
                                 <?php
                                 $objave = 0;
-                                for($i=0;$i<count(session('digitals'));$i++){
+                                for($i=0;$i<=count(session('digitals'));$i++){
                                     $objave += session('digitals')[0][$i]->objave;
                                 }
                                 ?>
