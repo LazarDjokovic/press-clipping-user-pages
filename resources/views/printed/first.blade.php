@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="jumbotron" style="background-color:#EEF1F8;padding-top:0px !important; margin-bottom:0px !important;padding-bottom:0px">
+    <div class="jumbotron" style="background-color:#EEF1F8; border-radius: 5px; padding-top:0px !important; margin-bottom:0px !important;padding-bottom:0px">
         <div class="row">
             <div class="col-sm-12">
                 <h3 style="padding:15px;">Štampane novosti</h3>
             </div>
 
         </div>
-        <hr style="background-color:black;">
+        <hr style="opacity: 0.1;">
 
         <div class="row" style="margin-top:10px !important;">
-            <div class="col-lg-12 text-center" id="search-div">
+            <div class="col-lg-12 text-left" style="padding-left: 40px;" id="search-div">
                 <?php
                 use Carbon\Carbon;
                 $carbon = new Carbon();
@@ -22,18 +22,18 @@
                         @csrf
                         <div class="form-group block">
 
-                            Od: <input type="date" class="form-control" id="from" name="from" style="width:80%;" value="{{ session('search_data')['from'] }}">
+                            Od: <input type="date" class="form-control" id="from" name="from" style="width:200px;" value="{{ session('search_data')['from'] }}">
 
 
                         </div>
-                        <div class="form-group">
+                        <div style="margin-left: 70px;" class="form-group">
 
-                            Do: <input class="form-control toDate" type="date" name="to" style="width:80%;" value="{{ session('search_data')['to'] }}">
+                            Do: <input class="form-control toDate" type="date" name="to" style="width:200px;" value="{{ session('search_data')['to'] }}">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="margin-left: 50px;">
 
-                            <select name="publisher" class="form-control publisher" id="sel2">
-                                <option selected value="svi">Svi</option>
+                            <select  name="publisher" class="form-control publisher" id="sel2">
+                                <option selected value="svi">Sve novine</option>
                                 @foreach($media as $oneMedia)
                                     @if($oneMedia->slug == session('search_data')['publisher'])
                                         <option value="{{$oneMedia->slug}}" selected>{{$oneMedia->name}}</option>
@@ -44,7 +44,7 @@
                         </div>
 
 
-                        <button type="submit" class="btn btn-primary" style="margin-top:3px">Pretraži</button>
+                        <button style="margin-left: 80px" type="submit" class="btn btn-primary" style="margin-top:3px;">Pretraži</button>
                         <div class="form-group">
                             @if(session('printeds'))
                                 <?php
@@ -53,9 +53,9 @@
                                     $objave += session('printeds')[0][$i]->objave;
                                 }
                                 ?>
-                                <h3 style="margin-bottom: 15px; padding-left:15px">Broj objava: {{$objave}}</h3>
+                                <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: {{$objave}}</h3>
                             @else
-                                <h3 style="margin-bottom: 15px; padding-left:15px">Broj objava: 0</h3>
+                                <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: 0</h3>
                             @endif
 
 
@@ -70,18 +70,18 @@
                         @csrf
                         <div class="form-group block">
 
-                            Od: <input type="date" class="form-control" id="from" name="from" style="width:80%;" value="{{ $carbonFormat }}">
+                            Od: <input type="date" class="form-control" id="from" name="from" style="width:200px;" value="{{ $carbonFormat }}">
 
 
                         </div>
-                        <div class="form-group">
+                        <div style="margin-left: 70px;" class="form-group">
 
-                            Do: <input class="form-control toDate" type="date" name="to" style="width:80%;" value="{{ $carbonFormat }}">
+                            Do: <input class="form-control toDate" type="date" name="to" style="width:200px;" value="{{ $carbonFormat }}">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="margin-left: 50px;">
 
-                            <select name="publisher" class="form-control publisher" id="sel2">
-                                <option selected value="svi">Svi</option>
+                            <select  name="publisher" class="form-control publisher" id="sel2">
+                                <option selected value="svi">Sve novine</option>
                                 @foreach($media as $oneMedia)
                                     @if($oneMedia->slug == session('search_data')['publisher'])
                                         <option value="{{$oneMedia->slug}}" selected>{{$oneMedia->name}}</option>
@@ -92,7 +92,7 @@
                         </div>
 
 
-                        <button type="submit" class="btn btn-primary" style="margin-top:3px">Pretraži</button>
+                        <button style="margin-left: 80px" type="submit" class="btn btn-primary" style="margin-top:3px">Pretraži</button>
                         <div class="form-group">
                             @if(session('printeds'))
                                 <?php
@@ -101,9 +101,9 @@
                                     $objave += session('printeds')[0][$i]->objave;
                                 }
                                 ?>
-                                <h3 style="margin-bottom: 15px; padding-left:15px">Broj objava: {{$objave}}</h3>
+                                <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: {{$objave}}</h3>
                             @else
-                                <h3 style="margin-bottom: 15px; padding-left:15px">Broj objava: 0</h3>
+                                <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: 0</h3>
                             @endif
 
 
@@ -123,7 +123,7 @@
 
                 @foreach(session('printeds')[0] as $printed)
                     <div class="col-sm-6 col-md-3 col-lg-3 media-image text-center">
-                        <img src="/images/logo.png" style="max-width:100%;max-height:100%;" id="img-logo">
+                        <img src="/images/book.jpg" style="max-width:100%;max-height:100%;" id="img-logo">
                         <h4>{{$printed->media_slug}} - Izdanje {{$printed->broj_izdanja}}</h4>
                         <p>Objave: {{$printed->objave}}</p>
                         <p>Objavljeno: {{$printed->created_at}}</p>
