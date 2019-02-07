@@ -25,6 +25,45 @@
 
 
 
+    <style>
+        .linkovi:hover{
+            background-color: #16A4FA !important;
+        }
+
+
+         .dot1 {
+             height: 7px;
+             width: 7px;
+             border-radius: 50%;
+             display: inline-block;
+             background-color:#E64C66;
+         }
+
+        .dot2 {
+            height: 7px;
+            width: 7px;
+            border-radius: 50%;
+            display: inline-block;
+            background-color:#FFAB00;
+        }
+
+        .dot3 {
+            height: 7px;
+            width: 7px;
+            border-radius: 50%;
+            display: inline-block;
+            background-color:#00BFDC;
+        }
+
+        .dot4 {
+            height: 7px;
+            width: 7px;
+            border-radius: 50%;
+            display: inline-block;
+            background-color:#7974D0;
+        }
+
+    </style>
 
     <!-- Bootstrap CSS
     <link href="css/bootstrap.min.css" rel="stylesheet">
