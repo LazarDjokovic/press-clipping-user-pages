@@ -49,7 +49,7 @@
                             @if(session('printeds'))
                                 <?php
                                 $objave = 0;
-                                for($i=0;$i<=count(session('printeds')[0]);$i++){
+                                for($i=0;$i<count(session('printeds')[0]);$i++){
                                     $objave += session('printeds')[0][$i]->objave;
                                 }
                                 ?>
@@ -98,7 +98,7 @@
                             @if(session('printeds'))
                                 <?php
                                 $objave = 0;
-                                for($i=0;$i<=count(session('printeds'));$i++){
+                                for($i=0;$i<count(session('printeds')[0]);$i++){
                                     $objave += session('printeds')[0][$i]->objave;
                                 }
                                 ?>
