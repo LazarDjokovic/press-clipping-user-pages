@@ -58,6 +58,11 @@
                                     echo $printed['new_text'];
                                 ?>
                             </div>
+                            <div class="buttons_action">
+                                <button style="margin-right:15px" type="button" class="btn btn-secondary pull-right">Štampaj PDF</button>
+                                <input style="width:200px" type="text" placeholder="Unesi imejl adresu" class="pull-left form-control" />
+                                <button type="button" style="margin-left:20px" class="btn pull-left">Pošalji mejl</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -69,12 +74,8 @@
     <script>
         $(document).ready(function () {
             var chars = 500;
-            var moretext = "<br/><button type=\"button\" class=\"btn btn-primary pull-right\">Prikaži više</button><button style=\"margin-right:15px\" type=\"button\" class=\"btn btn-secondary pull-right\">Štampaj PDF</button>" +
-                "" +
-                "<input style=\"width:200px\" type=\"text\" placeholder=\"Unesi imejl adresu\" class=\"pull-left form-control\" /><button type=\"button\" style=\"margin-left:20px\" class=\"btn pull-left\">Pošalji mejl</button>";
-            var lesstext = "<br/><button type=\"button\" class=\"btn btn-primary pull-right\">Prikaži manje</button><button style=\"margin-right:15px\" type=\"button\" class=\"btn btn-secondary pull-right\">Štampaj PDF</button>" +
-                "" +
-                "<input style=\"width:200px\" type=\"text\" placeholder=\"Unesi imejl adresu\" class=\"pull-left form-control\" /><button type=\"button\" style=\"margin-left:20px\" class=\"btn pull-left\">Pošalji mejl</button>";
+            var moretext = "<br/><button type=\"button\" class=\"btn btn-primary pull-right\">Prikaži više</button>";
+            var lesstext = "<br/><button type=\"button\" class=\"btn btn-primary pull-right\">Prikaži manje</button>";
             $('.more').each(function () {
                 var content = $(this).html();
                 if (content.length > chars) {
@@ -88,7 +89,7 @@
 
             });
 
-            $(".morelink>.vise").click(function () {
+            $(".morelink").click(function () {
                 if ($(this).hasClass("less")) {
                     $(this).removeClass("less");
                     $(this).html(moretext);
