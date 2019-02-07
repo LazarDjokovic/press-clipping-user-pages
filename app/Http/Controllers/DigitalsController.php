@@ -22,7 +22,7 @@ class DigitalsController extends Controller
         $media = Media::all();
 
 
-        return view('digital.index',compact('media'));
+        return view('digital.first',compact('media'));
     }
 
     /**
@@ -121,14 +121,14 @@ class DigitalsController extends Controller
 
         //if (\Route::current()->getName() == 'digitals_back'){
             $media = Media::all();
-            //return view('digital.index',compact('digitals','media'));
-        return view('testing.digitals.first',compact('digitals','media'));
+            return view('digital.first',compact('digitals','media'));
+       // return view('testing.digitals.first',compact('digitals','media'));
         //}
         //else
             //return back()->withInput();
     }
 
-    public function view($media_slug, $created_at, $neprocitane_objave, $neprocitani)
+    public function view($media_slug, $created_at, $neprocitani)
     {
         $now = Carbon::now()->format('Y:m:d H:i:s');
 
@@ -141,11 +141,8 @@ class DigitalsController extends Controller
         $created_at_from = $created_at . ' 00:00:00';
         $created_at_to = $created_at . ' 23:59:59';
 
-        abs($neprocitane_objave);
-        dd($neprocitane_objave);
         if($neprocitani == 1){
 
-            dd($neprocitane_objave);
             $digitals_view = DB::select('SELECT *, DATE(created_at) as created_at FROM digitals WHERE media_slug = "'.$media_slug.'" 
                                             AND company_id = "'.auth()->user()->company_id.'"
                                             AND created_at <= "'.$now.'"
@@ -192,8 +189,8 @@ class DigitalsController extends Controller
 
 
 
-        //return view('printed.printeds_view',compact('printeds_view'));
-        return view('testing.digitals.digitals_view',compact('printeds_view'));
+        return view('digital.digitals_view',compact('printeds_view'));
+        //return view('testing.digitals.digitals_view',compact('printeds_view'));
     }
 
     public function back(Request $request)
@@ -221,8 +218,8 @@ class DigitalsController extends Controller
 
         $media = Media::all();
 
-        //return view('digital.index',compact('digitals','media'));
-        return view('testing.digitals.first',compact('digitals','media'));
+        return view('digital.first',compact('digitals','media'));
+        //return view('testing.digitals.first',compact('digitals','media'));
         //return redirect()->route('digitals_search', compact('printeds','media'));
     }
 

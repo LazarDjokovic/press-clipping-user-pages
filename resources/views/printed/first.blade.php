@@ -121,11 +121,11 @@
     </div>
     <div class="row media-row" style="padding-bottom:15px;">
         @if(session('printeds'))
-
+            @if(count(session('printeds')[0]) > 0)
                 @foreach(session('printeds')[0] as $printed)
                     <div class="col-sm-6 col-md-2 col-lg-2 media-image text-center" style="margin-top: 40px;">
                         <img width="200px" src="/images/book.jpg" style="max-width:100%;max-height:100%; border-radius: 5px;" id="img-logo">
-                        <h4>{{$printed->media_slug}} - Izdanje {{$printed->broj_izdanja}}</h4>
+                        <h4>{{ucwords(str_replace('-', ' ', $printed->media_slug))}} - Izdanje {{$printed->broj_izdanja}}</h4>
                         <p>Objavljeno: {{$printed->created_at}}</p>
                         <?php
                             $neprocitani =  $printed->objave - $printed->procitani;
@@ -138,11 +138,12 @@
 
                     </div>
                 @endforeach
-
-
+            @else
+                <div class="col-xs-12 text-center" style="margin-top: 40px;">
+                    <h3>Nema medija za unete podatke</h3>
+                </div>
+            @endif
         @endif
-
-
     </div>
     <script>
 

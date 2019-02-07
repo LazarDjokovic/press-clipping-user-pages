@@ -5,7 +5,7 @@
     <div class="jumbotron" style="background-color:#EEF1F8;padding-top:0px !important; margin-bottom:0px !important;padding-bottom:0px">
         <div class="row">
             <div class="col-sm-12">
-                <h3 style="padding:15px;">Štampane novosti: <strong style="color:#3660D9">{{session('printeds_view')[0]->media_slug}} / Izdanje {{session('printeds_view')[0]->broj_izdanja}} / {{session('printeds_view')[0]->created_at->format('Y-m-d')}}</strong></h3>
+                <h3 style="padding:15px;">Štampane novosti: <strong style="color:#3660D9">{{ucwords(str_replace('-', ' ', session('printeds_view')[0]->media_slug))}} / Izdanje {{session('printeds_view')[0]->broj_izdanja}} / {{session('printeds_view')[0]->created_at->format('Y-m-d')}}</strong></h3>
 
 
                 <form action="{{route('printeds_back')}}" method="POST">
@@ -59,15 +59,15 @@
                                 ?>
                             </div>
                             <div class="buttons_action">
-                                <form class="form-group" action="/izdvojiPDF" method="POST">
-                                    @csrf
-                                    <input type="hidden"  name="media_id" value="{{ $printed['id'] }}" />
-                                    <input type="hidden" name="pressType" value="stampani" />
-                                    <button style="margin-right:15px" type="submit" class="btn btn-secondary pull-right">Štampaj PDF</button>
-                                </form>
+                                <button style="margin-right:15px" form="izdvoji_pdf_stampani" type="submit" class="btn btn-secondary pull-right">Štampaj PDF</button>
                                 <input style="width:200px" type="text" placeholder="Unesi imejl adresu" class="pull-left form-control" />
                                 <button type="button" style="margin-left:20px" class="btn pull-left">Pošalji mejl</button>
                             </div>
+                            <form class="form-group" id="izdvoji_pdf_stampani" action="/izdvojiPDF" method="POST">
+                                @csrf
+                                <input type="hidden"  name="media_id" value="{{ $printed['id'] }}" />
+                                <input type="hidden" name="pressType" value="stampani" />
+                            </form>
                         </div>
                     </div>
                 </div>
