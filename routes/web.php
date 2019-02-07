@@ -44,4 +44,4 @@ Route::post('/digitals/back','DigitalsController@back')->name('digitals_back');
 Route::get('/test/two_latest_news_view','TestController@two_latest_news_view');
 Route::post('/test/two_latest_news','TestController@two_latest_news');
 
-
+Route::post('/test/digitals_search','PrintedsController@digitals_search');

@@ -127,6 +127,8 @@ class PrintedsController extends Controller
 
     public function view($media_slug, $broj_izdanja, $created_at, $neprocitani)
     {
+        $now = Carbon::now()->format('Y:m:d H:i:s');
+
         if(\request()->session()->has('printeds'))
             \request()->session()->forget('printeds');
 
@@ -153,7 +155,9 @@ class PrintedsController extends Controller
             ->get()->toArray();*/
 
         $printeds_view = DB::select('SELECT *, DATE(created_at) as created_at FROM printeds WHERE media_slug = "'.$media_slug.'" 
-                                            AND broj_izdanja = "'.$broj_izdanja.'" AND company_id = "'.auth()->user()->company_id.'" 
+                                            AND broj_izdanja = "'.$broj_izdanja.'" 
+                                            AND created_at <= "'.$now.'"
+                                            AND company_id = "'.auth()->user()->company_id.'" 
                                             AND created_at BETWEEN "'.$created_at_from.'" AND "'.$created_at_to.'";');
 
         //dd($printeds_view);
@@ -169,7 +173,7 @@ class PrintedsController extends Controller
                     'broj_izdanja' => $printeds_view[$i]->broj_izdanja,
                     'company_id' => $printeds_view[$i]->company_id,
                     'printed_id' => $printeds_view[$i]->id,
-                    'created_at' => $printeds_view[$i]->created_at,
+                    'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
                 ];
             }
@@ -182,6 +186,7 @@ class PrintedsController extends Controller
                 'broj_izdanja' => $broj_izdanja,
                 'company_id' => auth()->user()->company_id
             ])
+            ->where('created_at','<=',$now)
             ->whereBetween('created_at',[$created_at_from,$created_at_to])
             ->paginate(10);
 

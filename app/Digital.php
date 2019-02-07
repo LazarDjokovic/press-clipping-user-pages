@@ -84,7 +84,8 @@ class Digital extends Model
         }
 
 
-        dd($request->from, $request->to, $now, $digitals);
+        //dd($request->from, $request->to, $now, $digitals);
+        //dd($digitals);
         return array($digitals);
     }
 }
