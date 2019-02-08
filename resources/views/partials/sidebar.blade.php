@@ -10,7 +10,7 @@
                 <a class="linkovi" href="/printed" style="font-size:12px;border: 0px !important;"><i class="fa fa-newspaper-o" style="color:#FFF;"></i> Štampane novosti</a>
             </li>
             <li class="sub-menu">
-                <a class="linkovi" href="/digital" style="font-size:12px;border: 0px !important;"><i class="fa fa-globe" style="color:#FFF;"></i> Digitalni novosti</a>
+                <a class="linkovi" href="/digital" style="font-size:12px;border: 0px !important;"><i class="fa fa-globe" style="color:#FFF;"></i> Digitalne novosti</a>
             </li>
             <li class="sub-menu">
                 <a class="linkovi" href="/radio" style="font-size:12px;border: 0px !important;"><i class="fa fa-bullhorn" style="color:#FFF;"></i> Radio novosti</a>

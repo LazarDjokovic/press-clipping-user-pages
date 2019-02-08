@@ -33,6 +33,8 @@ Route::post('/digitals/back','DigitalsController@back')->name('digitals_back');
 
 Route::post('/izdvojiPDF', 'PdfController@index');
 
+Route::post('/printeds/search_ajax', 'PrintedsController@search_ajax');
+
 
 
 

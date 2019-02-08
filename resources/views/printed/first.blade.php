@@ -18,11 +18,11 @@
                 $carbonFormat = $carbon->format('Y-m-d');
                 ?>
                 @if(session('search_data'))
-                    <form class="form-inline" action="{{route('printeds_search')}}" method="POST">
+                     <form class="form-inline" action="{{route('printeds_search')}}" method="POST">
                         @csrf
                         <div class="form-group block">
 
-                            Od: <input type="date" class="form-control" id="from" name="from" style="width:200px;" value="{{ session('search_data')['from'] }}">
+                            Od: <input type="date" class="form-control fromDate" id="from" name="from" style="width:200px;" value="{{ session('search_data')['from'] }}">
 
 
                         </div>
@@ -65,13 +65,13 @@
                             <!--<i class="fa fa-table fa-2x" aria-hidden="true"></i>
                             <i class="fa fa-table fa-2x" aria-hidden="true"></i>-->
                         </div>
-                    </form>
+                     </form>
                 @else
                     <form class="form-inline" action="{{route('printeds_search')}}" method="POST">
                         @csrf
                         <div class="form-group block">
 
-                            Od: <input type="date" class="form-control" id="from" name="from" style="width:200px;" value="{{ $carbonFormat }}">
+                            Od: <input type="date" class="form-control fromDate" id="from" name="from" style="width:200px;" value="{{ $carbonFormat }}">
 
 
                         </div>
@@ -119,25 +119,24 @@
         </div>
         </div>
     </div>
-    <div class="row media-row" style="padding-bottom:15px;">
+    <div class="row media-row" style="padding-bottom:15px;" id="load-more-items">
         @if(session('printeds'))
             @if(count(session('printeds')[0]) > 0)
-                @foreach(session('printeds')[0] as $printed)
+                @for($i=0;$i<4;$i++)
                     <div class="col-sm-6 col-md-2 col-lg-2 media-image text-center" style="margin-top: 40px;">
                         <img width="200px" src="/images/book.jpg" style="max-width:100%;max-height:100%; border-radius: 5px;" id="img-logo">
-                        <h4>{{ucwords(str_replace('-', ' ', $printed->media_slug))}} - Izdanje {{$printed->broj_izdanja}}</h4>
-                        <p>Objavljeno: {{$printed->created_at}}</p>
+                        <h4>{{ucwords(str_replace('-', ' ', session('printeds')[0][$i]->media_slug))}} - Izdanje {{session('printeds')[0][$i]->broj_izdanja}}</h4>
+                        <p>Objavljeno: {{session('printeds')[0][$i]->created_at}}</p>
                         <?php
-                            $neprocitani =  $printed->objave - $printed->procitani;
+                            $neprocitani =  session('printeds')[0][$i]->objave - session('printeds')[0][$i]->procitani;
                         ?>
                         @if($neprocitani > 0)
-                            <a href="/printeds/view/{{$printed->media_slug}}/{{$printed->broj_izdanja}}/{{$printed->created_at}}/1" style="color:#FFAB00;">Nepročitane objave ({{$neprocitani}})</a>
+                            <a href="/printeds/view/{{session('printeds')[0][$i]->media_slug}}/{{session('printeds')[0][$i]->broj_izdanja}}/{{session('printeds')[0][$i]->created_at}}/1" style="color:#FFAB00;">Nepročitane objave ({{$neprocitani}})</a>
                         @else
-                            <a href="/printeds/view/{{$printed->media_slug}}/{{$printed->broj_izdanja}}/{{$printed->created_at}}/0">Sve objave pročitane({{ $printed->objave }})</a>
+                            <a href="/printeds/view/{{session('printeds')[0][$i]->media_slug}}/{{session('printeds')[0][$i]->broj_izdanja}}/{{session('printeds')[0][$i]->created_at}}/0">Sve objave pročitane({{ session('printeds')[0][$i]->objave }})</a>
                         @endif
-
                     </div>
-                @endforeach
+                @endfor
             @else
                 <div class="col-xs-12 text-center" style="margin-top: 40px;">
                     <h3>Nema medija za unete podatke</h3>
@@ -145,31 +144,49 @@
             @endif
         @endif
     </div>
+    <div class="row" style="margin-bottom: 20px;">
+        <div style="display:none;  margin: auto;" class="loader" id="loader"></div>
+    </div>
+    @if(session('printeds'))
+        @if(count(session('printeds')[0]) > 0)
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <button  type="button" class="btn btn-primary read-more" style="margin-bottom: 50px;">Učitaj još</button>
+                </div>
+            </div>
+        @endif
+    @endif
     <script>
 
         $(document).ready(function () {
 
-           /* $( "#search_printeds" ).click(function() {
+            $(document).ajaxStart(function () {
+                //ajax request went so show the loading image
+                $('.loader').show();
+            });
+            $(document).ajaxStop(function () {
+                //got response so hide the loading image
+                $('.loader').hide();
+            });
 
-                var fromDate = $('#fromDate').val();
-                var toDate = $('#toDate').val();
+           $( ".read-more" ).click(function() {
 
+                var fromDate = $('.fromDate').val();
+                var toDate = $('.toDate').val();
+                var publisher = $('.publisher').val();
 
                 var token =  $('input[name="_token"]').attr('value');
 
-                var publisher = $('#publisher').val();
-
-
-
-
+                var numItems = $('.media-image').length;
 
                 $.ajax({
                     type:'POST',
-                    url:'/printeds/search',
+                    url:'/printeds/search_ajax',
                     data:{
                         'from': fromDate,
                         'to' : toDate,
-                        'publisher' : publisher
+                        'publisher' : publisher,
+                        'numItems' : numItems
                     },
                     headers:{
                         'X-CSRF-Token' : token,
@@ -177,8 +194,13 @@
                         'Access-Control-Allow-Headers':'*'
                     },
                     success:function (data) {
-                        console.log(data);
-                        //$('.mediji_izlistavanje').html(data);
+                        var number = $(data).filter(".media-image").length;
+                        if(number < 4)
+                            $( ".read-more" ).hide();
+                        else
+                            $( ".read-more" ).show();
+                        //console.log(data);
+                        $('#load-more-items').append(data);
                         //console.log(data);
                     },
                     error: function(xhr, status, error) {
@@ -186,10 +208,7 @@
                     }
                 })
 
-            });*/
-
-
-
+            });
         })
     </script>
     <!--/row-->
