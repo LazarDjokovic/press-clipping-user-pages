@@ -13,3 +13,10 @@
         @endif
     </div>
 @endforeach
+<?php
+    $objave = 0;
+    for($i=0; $i<count($printeds); $i++){
+        $objave += $printeds[$i]->objave;
+    }
+?>
+<input type="hidden" value="{{$objave}}" id="nove-objave">

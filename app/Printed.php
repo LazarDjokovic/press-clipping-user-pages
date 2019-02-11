@@ -56,7 +56,7 @@ class Printed extends Model
                 ->whereBetween('printeds.created_at',[$request->from, $request->to])
                 ->groupBy('media_slug', 'created_at', 'printeds.stage', 'broj_izdanja', 'company_id', 'original_src', 'companies.name')
                 ->havingRaw("count(*) > 0")
-                ->take(4)
+                ->take(10)
                 ->get();
 
             $read = [];
@@ -78,7 +78,7 @@ class Printed extends Model
                 ->whereBetween('printeds.created_at',[$request->from, $request->to])
                 ->groupBy('media_slug', 'created_at', 'printeds.stage', 'broj_izdanja', 'company_id', 'original_src', 'companies.name')
                 ->havingRaw("count(*) > 0")
-                ->take(4)
+                ->take(10)
                 ->get();
 
             $read = [];
