@@ -42,8 +42,7 @@
                             <h4 style="color: #BB7DE8 !important;">{{$printed['podnaslov']}}</h4>
                         </div>
                         <div class="col-xs-3">
-                            <img src="/images/book.jpg" style="width:100px;">
-                            <img src="/images/book.jpg" style="width:100px;">
+                            <a href="http://192.169.189.202/gs/public/javascripts/output_images/{{substr($printed['single_page_src'], 0, -4)}}.jpg" target="_blank"><img src="http://192.169.189.202/gs/public/javascripts/output_images/{{substr($printed['single_page_src'], 0, -4)}}.jpg" style="width:100px;"></a>
                         </div>
                     </div>
                     <div class="row">

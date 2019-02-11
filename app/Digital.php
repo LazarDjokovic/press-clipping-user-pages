@@ -52,6 +52,7 @@ class Digital extends Model
                 ->where('digitals.created_at','<=', $now)
                 ->groupBy('media_slug', 'created_at', 'digitals.stage', 'company_id', 'link_src', 'companies.name')
                 ->havingRaw("count(*) > 0")
+                ->take(10)
                 ->get();
 
 
@@ -74,6 +75,7 @@ class Digital extends Model
                 ->where('digitals.created_at','<=', $now)
                 ->groupBy('media_slug', 'created_at', 'digitals.stage', 'company_id', 'link_src', 'companies.name')
                 ->havingRaw("count(*) > 0")
+                ->take(10)
                 ->get();
 
             $read = [];

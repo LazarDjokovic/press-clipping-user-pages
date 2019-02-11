@@ -41,10 +41,6 @@
                             <h1 style="color: #062945 !important;"><strong>{{$printed['naslov']}}</strong></h1>
                             <h4 style="color: #BB7DE8 !important;">{{$printed['podnaslov']}}</h4>
                         </div>
-                        <div class="col-xs-3">
-                            <img src="/images/book.jpg" style="width:100px;">
-                            <img src="/images/book.jpg" style="width:100px;">
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">

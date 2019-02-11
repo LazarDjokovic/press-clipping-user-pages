@@ -58,7 +58,7 @@
                                 <input type="hidden" value="{{$objave}}" id="broj-objava">
                             @else
                                 <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: <span id="prikaz-objava">0</span></h3>
-                                <input type="hidden" value="{{$objave}}" id="broj-objava">
+                                <input type="hidden" value="0" id="broj-objava">
                             @endif
 
 
@@ -108,7 +108,7 @@
                                 <input type="hidden" value="{{$objave}}" id="broj-objava">
                             @else
                                 <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: <span id="prikaz-objava">0</span></h3>
-                                <input type="hidden" value="{{$objave}}" id="broj-objava">
+                                <input type="hidden" value="0" id="broj-objava">
                             @endif
 
 

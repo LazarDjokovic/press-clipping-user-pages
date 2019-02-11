@@ -43,30 +43,30 @@
 
 
 
+            <div id="two_latest_news">
+                <li class="sub-menu">
+                    <p style="padding: 5px;">
+                        <a style="font-size:12px;border: 0px !important;"> <span class="fa fa-clock-o"></span>
 
-            <li class="sub-menu">
-                <p style="padding: 5px;">
-                    <a style="font-size:12px;border: 0px !important;"> <span class="fa fa-clock-o"></span>
+                            <strong>Kurir</strong> najnovije izdanje 23121 je odobreno!
 
-                        <strong>Kurir</strong> najnovije izdanje 23121 je odobreno!
+                            <br><span>Pre 24 minuta</span>
 
-                        <br><span>Pre 24 minuta</span>
+                        </a>
+                    </p>
+                </li>
+                <li class="sub-menu">
+                    <p style="padding: 5px;">
+                        <a style="font-size:12px;border: 0px !important;"> <span class="fa fa-clock-o"></span>
 
-                    </a>
-                </p>
-            </li>
-            <li class="sub-menu">
-                <p style="padding: 5px;">
-                    <a style="font-size:12px;border: 0px !important;"> <span class="fa fa-clock-o"></span>
+                            <strong>Kurir</strong> najnovije izdanje 23121 je odobreno!
 
-                        <strong>Kurir</strong> najnovije izdanje 23121 je odobreno!
+                            <br><span>Pre 24 minuta</span>
 
-                        <br><span>Pre 24 minuta</span>
-
-                    </a>
-                </p>
-            </li>
-
+                        </a>
+                    </p>
+                </li>
+            </div>
 
             <li class="sub-menu" style="display:none;" id="logout-link">
                 <a class="dropdown-item" href="{{ route('logout') }}"

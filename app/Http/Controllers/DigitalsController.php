@@ -223,4 +223,68 @@ class DigitalsController extends Controller
         //return redirect()->route('digitals_search', compact('printeds','media'));
     }
 
+    public function search_ajax(Request $request)
+    {
+        //$printeds = Printed::take(4)->skip($request->numItems)->get();
+
+        $request->from = $request->from . ' 00:00:00';
+        $request->to = $request->to . ' 23:59:59';
+
+        $now = Carbon::now();
+
+        if($request->publisher == 'svi'){
+            $digitals = DB::table('digitals')
+                ->join('companies', 'companies.id', '=', 'digitals.company_id')
+                ->select(DB::raw(" media_slug, count(*) as objave, companies.name as company_name, DATE(digitals.created_at) as created_at, company_id"))
+                ->where([
+                    'digitals.stage' => 31,
+                    'company_id' => auth()->user()->company_id
+                ])
+                ->where('digitals.created_at','<=', $now)
+                ->whereBetween('digitals.created_at',[$request->from, $request->to])
+                ->groupBy('media_slug', 'created_at', 'digitals.stage', 'company_id', 'companies.name')
+                ->havingRaw("count(*) > 0")
+                ->take(10)
+                ->skip($request->numItems)
+                ->get();
+
+            $read = [];
+            for ($i = 0; $i < count($digitals); $i++){
+                $read[$i] = DB::select("SELECT COUNT(DISTINCT digital_id) as procitani FROM digitals_read WHERE user_id = '".auth()->user()->id."' AND company_id = '".auth()->user()->company_id."' AND media_slug = '".$digitals[$i]->media_slug."' AND digitals_read.created_at BETWEEN '".$request->from."' AND '".$request->to."'");
+                $digitals[$i]->procitani = $read[$i][0]->procitani;
+            }
+        }
+        else{
+            $digitals = DB::table('digitals')
+                ->join('companies', 'companies.id', '=', 'digitals.company_id')
+                ->select(DB::raw(" media_slug, count(*) as objave, companies.name as company_name, DATE(digitals.created_at) as created_at, company_id"))
+                ->where([
+                    'digitals.stage' => 31,
+                    'company_id' => auth()->user()->company_id,
+                    'digitals.media_slug' => $request->publisher
+                ])
+                ->where('digitals.created_at','<=', $now)
+                ->whereBetween('digitals.created_at',[$request->from, $request->to])
+                ->groupBy('media_slug', 'created_at', 'digitals.stage', 'company_id', 'companies.name')
+                ->havingRaw("count(*) > 0")
+                ->take(10)
+                ->skip($request->numItems)
+                ->get();
+
+            $read = [];
+            for ($i = 0; $i < count($digitals); $i++){
+                $read[$i] = DB::select("SELECT COUNT(DISTINCT digital_id) as procitani FROM digitals_read WHERE user_id = '".auth()->user()->id."' AND company_id = '".auth()->user()->company_id."' AND media_slug = '".$digitals[$i]->media_slug."' AND digitals_read.created_at  BETWEEN '".$request->from."' AND '".$request->to."'");
+                $digitals[$i]->procitani = $read[$i][0]->procitani;
+            }
+        }
+
+        //$new_printeds = array_merge((array)session('printeds')[0],(array)$printeds);
+        //$new_printeds = session('printeds')[0].toArray() + $printeds.toArray();
+        //$new_printeds = session('printeds')[0]->merge($printeds);
+        //Session::put('printeds',$new_printeds);
+
+        //return session('printeds');
+        return view('digital.ajax.first',compact('digitals'));
+    }
+
 }

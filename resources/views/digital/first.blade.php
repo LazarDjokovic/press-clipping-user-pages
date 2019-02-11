@@ -54,9 +54,11 @@
                                 }
                                 ?>
 
-                                <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: {{$objave}}</h3>
+                                <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: <span id="prikaz-objava">{{$objave}}</span></h3>
+                                <input type="hidden" value="{{$objave}}" id="broj-objava">
                             @else
-                                <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: 0</h3>
+                                <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: <span id="prikaz-objava">0</span></h3>
+                                <input type="hidden" value="0" id="broj-objava">
                             @endif
 
 
@@ -102,9 +104,11 @@
                                     $objave += session('digitals')[0][$i]->objave;
                                 }
                                 ?>
-                                <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: {{$objave}}</h3>
+                                <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: <span id="prikaz-objava">{{$objave}}</span></h3>
+                                <input type="hidden" value="{{$objave}}" id="broj-objava">
                             @else
-                                <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: 0</h3>
+                                <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: <span id="prikaz-objava">0</span></h3>
+                                <input type="hidden" value="0" id="broj-objava">
                             @endif
 
 
@@ -119,25 +123,38 @@
         </div>
     </div>
     </div>
-    <div class="row media-row" style="padding-bottom:15px;">
+    <div class="row media-row" style="padding-bottom:15px;" id="load-more-items">
         @if(session('digitals'))
-            @if(count(session('digitals')[0]) > 0)
-                @foreach(session('digitals')[0] as $printed)
+            @if(count(session('digitals')[0]) >= 10)
+                @for($i=0; $i<10; $i++)
                     <div class="col-sm-6 col-md-2 col-lg-2 media-image text-center" style="margin-top: 40px;">
-                        <img width="200px" src="/images/book.jpg" style="max-width:100%;max-height:100%; border-radius: 5px;" id="img-logo">
-                        <h4>{{ucwords(str_replace('-', ' ', $printed->media_slug))}}</h4>
-                        <p>Objavljeno: {{$printed->created_at}}</p>
+                        <h4>{{ucwords(str_replace('-', ' ', session('digitals')[0][$i]->media_slug))}}</h4>
+                        <p>Objavljeno: {{session('digitals')[0][$i]->created_at}}</p>
                         <?php
-                        $neprocitani =  $printed->objave - $printed->procitani;
+                        $neprocitani =  session('digitals')[0][$i]->objave - session('digitals')[0][$i]->procitani;
                         ?>
                         @if($neprocitani > 0)
-                            <a href="/digitals/view/{{$printed->media_slug}}/{{$printed->created_at}}/1" style="color:#FFAB00;">Nepročitane objave ({{$neprocitani}})</a>
+                            <a href="/digitals/view/{{session('digitals')[0][$i]->media_slug}}/{{session('digitals')[0][$i]->created_at}}/1" style="color:#FFAB00;">Nepročitane objave ({{$neprocitani}})</a>
                         @else
-                            <a href="/digitals/view/{{$printed->media_slug}}/{{$printed->created_at}}/0">Sve objave pročitane({{ $printed->objave }})</a>
+                            <a href="/digitals/view/{{session('digitals')[0][$i]->media_slug}}/{{session('digitals')[0][$i]->created_at}}/0">Sve objave pročitane({{ session('digitals')[0][$i]->objave }})</a>
                         @endif
-
                     </div>
-                @endforeach
+                @endfor
+            @elseif(count(session('digitals')[0]) > 0 && count(session('digitals')[0]) < 10)
+                @for($i=0; $i<count(session('digitals')[0]); $i++)
+                    <div class="col-sm-6 col-md-2 col-lg-2 media-image text-center" style="margin-top: 40px;">
+                        <h4>{{ucwords(str_replace('-', ' ', session('digitals')[0][$i]->media_slug))}}</h4>
+                        <p>Objavljeno: {{session('digitals')[0][$i]->created_at}}</p>
+                        <?php
+                        $neprocitani =  session('digitals')[0][$i]->objave - session('digitals')[0][$i]->procitani;
+                        ?>
+                        @if($neprocitani > 0)
+                            <a href="/digitals/view/{{session('digitals')[0][$i]->media_slug}}/{{session('digitals')[0][$i]->created_at}}/1" style="color:#FFAB00;">Nepročitane objave ({{$neprocitani}})</a>
+                        @else
+                            <a href="/digitals/view/{{session('digitals')[0][$i]->media_slug}}/{{session('digitals')[0][$i]->created_at}}/0">Sve objave pročitane({{ session('printeds')[0][$i]->objave }})</a>
+                        @endif
+                    </div>
+                @endfor
             @else
                 <div class="col-xs-12 text-center" style="margin-top: 40px;">
                     <h3>Nema medija za unete podatke</h3>
@@ -145,51 +162,80 @@
             @endif
         @endif
     </div>
+    <div class="row" style="margin-bottom: 20px;">
+        <div style="display:none;  margin: auto;" class="loader" id="loader"></div>
+    </div>
+    @if(session('digitals'))
+        @if(count(session('digitals')[0]) >= 10)
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <button  type="button" class="btn btn-primary read-more" style="margin-bottom: 50px;">Učitaj još</button>
+                </div>
+            </div>
+        @endif
+    @endif
     <script>
 
         $(document).ready(function () {
 
-            /* $( "#search_printeds" ).click(function() {
+            $(document).ajaxStart(function () {
+                //ajax request went so show the loading image
+                $('.loader').show();
+            });
+            $(document).ajaxStop(function () {
+                //got response so hide the loading image
+                $('.loader').hide();
+            });
 
-                 var fromDate = $('#fromDate').val();
-                 var toDate = $('#toDate').val();
+            $( ".read-more" ).click(function() {
 
+                var fromDate = $('.fromDate').val();
+                var toDate = $('.toDate').val();
+                var publisher = $('.publisher').val();
 
-                 var token =  $('input[name="_token"]').attr('value');
+                var token =  $('input[name="_token"]').attr('value');
 
-                 var publisher = $('#publisher').val();
+                var broj_objava = $('#broj-objava').val();
 
+                var numItems = $('.media-image').length;
 
+                $.ajax({
+                    type:'POST',
+                    url:'/digitals/search_ajax',
+                    data:{
+                        'from': fromDate,
+                        'to' : toDate,
+                        'publisher' : publisher,
+                        'numItems' : numItems
+                    },
+                    headers:{
+                        'X-CSRF-Token' : token,
+                        'accept': 'application/json',
+                        'Access-Control-Allow-Headers':'*'
+                    },
+                    success:function (data) {
+                        var number = $(data).filter(".media-image").length;
+                        if(number < 4)
+                            $( ".read-more" ).hide();
+                        else
+                            $( ".read-more" ).show();
 
+                        var nove_objave = $(data).filter("#nove-objave").val();
+                        if(nove_objave > 0){
+                            $('#prikaz-objava').html(parseInt(nove_objave) + parseInt(broj_objava));
+                            $( ".read-more" ).hide();
+                        }
 
+                        $('#load-more-items').append(data);
+                        //console.log(data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                        //alert('Kontaktirajte programere, nesto nije u redu.');
+                    }
+                })
 
-                 $.ajax({
-                     type:'POST',
-                     url:'/printeds/search',
-                     data:{
-                         'from': fromDate,
-                         'to' : toDate,
-                         'publisher' : publisher
-                     },
-                     headers:{
-                         'X-CSRF-Token' : token,
-                         'accept': 'application/json',
-                         'Access-Control-Allow-Headers':'*'
-                     },
-                     success:function (data) {
-                         console.log(data);
-                         //$('.mediji_izlistavanje').html(data);
-                         //console.log(data);
-                     },
-                     error: function(xhr, status, error) {
-                         alert('Kontaktirajte programere, nesto nije u redu.');
-                     }
-                 })
-
-             });*/
-
-
-
+            });
         })
     </script>
     <!--/row-->
