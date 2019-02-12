@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    Ovo je početna kada se loguje korisnik. Šta uopšte staviti kao početnu stranicu ? Razmotriti sa novinarnicom.
                 </div>
             </div>
         </div>

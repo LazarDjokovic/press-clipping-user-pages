@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     @include('partials.head')
-<body>
+
+    @if(Route::currentRouteName() == "login")
+<body style="background: url('/images/login-background.jpg'); background-size: cover">
+@else
+    <body>
+@endif
+
     <!-- container section start -->
     <section id="container" class="">
         @include('partials.header')

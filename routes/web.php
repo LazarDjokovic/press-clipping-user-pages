@@ -12,42 +12,44 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::resource('/printed','PrintedsController');
-Route::resource('/digital','DigitalsController');
-
-Route::post('/printeds/search','PrintedsController@search')->name('printeds_search');
-Route::post('/digitals/search','DigitalsController@search')->name('digitals_search');
-
-Route::get('/printeds/view/{media_slug}/{broj_izdanja}/{created_at}/{neprocitani?}','PrintedsController@view');
-Route::get('/digitals/view/{media_slug}/{created_at}/{neprocitani?}','DigitalsController@view');
-
-Route::post('/printeds/back','PrintedsController@back')->name('printeds_back');
-Route::post('/digitals/back','DigitalsController@back')->name('digitals_back');
-
-Route::post('/izdvojiPDF', 'PdfController@index');
-
-Route::post('/printeds/search_ajax', 'PrintedsController@search_ajax');
-Route::post('/digitals/search_ajax', 'DigitalsController@search_ajax');
-
-Route::post('/printeds/two_latest_news_view','PrintedsController@two_latest_news_view');
-Route::post('/printeds/two_latest_news','PrintedsController@two_latest_news');
 
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::resource('/printed','PrintedsController');
+    Route::resource('/digital','DigitalsController');
 
+    Route::post('/printeds/search','PrintedsController@search')->name('printeds_search');
+    Route::post('/digitals/search','DigitalsController@search')->name('digitals_search');
 
+    Route::get('/printeds/view/{media_slug}/{broj_izdanja}/{created_at}/{neprocitani?}','PrintedsController@view');
+    Route::get('/digitals/view/{media_slug}/{created_at}/{neprocitani?}','DigitalsController@view');
+
+    Route::post('/printeds/back','PrintedsController@back')->name('printeds_back');
+    Route::post('/digitals/back','DigitalsController@back')->name('digitals_back');
+
+    Route::post('/izdvojiPDF', 'PdfController@index');
+
+    Route::post('/printeds/search_ajax', 'PrintedsController@search_ajax');
+    Route::post('/digitals/search_ajax', 'DigitalsController@search_ajax');
+
+    Route::post('/printeds/two_latest_news_view','PrintedsController@two_latest_news_view');
+    Route::post('/printeds/two_latest_news','PrintedsController@two_latest_news');
 
 
 
 //Testing routes
-Route::get('/test/two_latest_news_view','TestController@two_latest_news_view');
-Route::post('/test/two_latest_news','TestController@two_latest_news');
+    Route::get('/test/two_latest_news_view','TestController@two_latest_news_view');
+    Route::post('/test/two_latest_news','TestController@two_latest_news');
 
-Route::post('/test/digitals_search','PrintedsController@digitals_search');
+    Route::post('/test/digitals_search','PrintedsController@digitals_search');
+
+
+});
+
