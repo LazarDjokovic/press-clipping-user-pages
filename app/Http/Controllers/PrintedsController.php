@@ -157,7 +157,8 @@ class PrintedsController extends Controller
         $printeds_view = DB::select('SELECT *, DATE(created_at) as created_at FROM printeds WHERE media_slug = "'.$media_slug.'" 
                                             AND broj_izdanja = "'.$broj_izdanja.'" 
                                             AND created_at <= "'.$now.'"
-                                            AND company_id = "'.auth()->user()->company_id.'" 
+                                            AND company_id = "'.auth()->user()->company_id.'"
+											AND stage = 31
                                             AND created_at BETWEEN "'.$created_at_from.'" AND "'.$created_at_to.'";');
 
         //dd($printeds_view);
@@ -187,6 +188,7 @@ class PrintedsController extends Controller
                 'company_id' => auth()->user()->company_id
             ])
             ->where('created_at','<=',$now)
+            ->where('stage',31)
             ->whereBetween('created_at',[$created_at_from,$created_at_to])
             ->paginate(10);
 

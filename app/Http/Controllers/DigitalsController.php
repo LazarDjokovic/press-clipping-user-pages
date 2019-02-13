@@ -146,6 +146,7 @@ class DigitalsController extends Controller
             $digitals_view = DB::select('SELECT *, DATE(created_at) as created_at FROM digitals WHERE media_slug = "'.$media_slug.'" 
                                             AND company_id = "'.auth()->user()->company_id.'"
                                             AND created_at <= "'.$now.'"
+                                            AND stage = 31
                                             AND created_at BETWEEN "'.$created_at_from.'" AND "'.$created_at_to.'";');
 
             $digitals_array = [];
@@ -169,6 +170,7 @@ class DigitalsController extends Controller
                 'company_id' => auth()->user()->company_id
             ])
             ->where('created_at','<=',$now)
+            ->where('stage',31)
             ->whereBetween('created_at',[$created_at_from,$created_at_to])
             ->paginate(10);
 
