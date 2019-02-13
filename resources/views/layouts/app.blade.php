@@ -39,49 +39,50 @@
     <script src="{{asset('js/scripts.js')}}"></script>
     <script src="{{asset('js/jquery.slimscroll.min.js')}}"></script>
 
-    <script>
-        $(document).ready(function () {
+    @if(auth()->check())
+        <script>
+            $(document).ready(function () {
 
-            two_latest_news();
-
-            function two_latest_news(){
-
-                var token =  $('input[name="_token"]').attr('value');
-
-                $.ajax({
-                    type:'POST',
-                    url:'/printeds/two_latest_news',
-                    data:{
-
-                    },
-                    headers:{
-                        'X-CSRF-Token' : token
-                    },
-                    success:function (data) {
-                        $('#two_latest_news').html(data);
-                        //console.log(data);
-                    },
-                    error: function(xhr, status, error) {
-                        console.log(error);
-                    },
-                    global: false,     // this makes sure ajaxStart is not triggered
-                    complete: function() {
-                        // Schedule the next request when the current one's complete
-                        //setInterval(two_latest_news, 20000);
-                        setInterval(function(){
-                            $("#two_latest_news").animate({'margin-top':'50px'},1000)
-                            $("#two_latest_news").animate({'margin-top':'0px'},1000)
-                        },1000*50);
-                    }
-                })
-            }
-
-            window.setInterval(function(){
                 two_latest_news();
-            },1000*50);
-        })
-    </script>
 
+                function two_latest_news(){
+
+                    var token =  $('input[name="_token"]').attr('value');
+
+                    $.ajax({
+                        type:'POST',
+                        url:'/printeds/two_latest_news',
+                        data:{
+
+                        },
+                        headers:{
+                            'X-CSRF-Token' : token
+                        },
+                        success:function (data) {
+                            $('#two_latest_news').html(data);
+                            //console.log(data);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(error);
+                        },
+                        global: false,     // this makes sure ajaxStart is not triggered
+                        complete: function() {
+                            // Schedule the next request when the current one's complete
+                            //setInterval(two_latest_news, 20000);
+                            setInterval(function(){
+                                $("#two_latest_news").animate({'margin-top':'50px'},1000)
+                                $("#two_latest_news").animate({'margin-top':'0px'},1000)
+                            },1000*50);
+                        }
+                    })
+                }
+
+                window.setInterval(function(){
+                    two_latest_news();
+                },1000*50);
+            })
+        </script>
+    @endif
 
     <!--<script src="js/bootstrap.min.js"></script>
 

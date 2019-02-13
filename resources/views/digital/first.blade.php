@@ -16,6 +16,7 @@
                 use Carbon\Carbon;
                 $carbon = new Carbon();
                 $carbonFormat = $carbon->format('Y-m-d');
+                Carbon::setLocale('sr');
                 ?>
                 @if(session('search_data_digital'))
                     <form class="form-inline" action="{{route('digitals_search')}}" method="POST">
@@ -144,7 +145,7 @@
                 @for($i=0; $i<count(session('digitals')[0]); $i++)
                     <div class="col-sm-6 col-md-2 col-lg-2 media-image text-center" style="margin-top: 40px;">
                         <h4>{{ucwords(str_replace('-', ' ', session('digitals')[0][$i]->media_slug))}}</h4>
-                        <p>Objavljeno: {{session('digitals')[0][$i]->created_at}}</p>
+                        <p>Objavljeno: {{\Carbon\Carbon::parse(session('digitals')[0][$i]->created_at)->format('D m-Y')}}</p>
                         <?php
                         $neprocitani =  session('digitals')[0][$i]->objave - session('digitals')[0][$i]->procitani;
                         ?>

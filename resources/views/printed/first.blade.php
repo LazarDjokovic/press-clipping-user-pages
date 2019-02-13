@@ -144,7 +144,7 @@
             @elseif(count(session('printeds')[0]) > 0 && count(session('printeds')[0]) < 10)
                 @for($i=0; $i<count(session('printeds')[0]); $i++)
                     <div class="col-sm-6 col-md-2 col-lg-2 media-image text-center" style="margin-top: 40px;">
-                        <img width="200px" src="/images/book.jpg" style="max-width:100%;max-height:100%; border-radius: 5px;" id="img-logo">
+                        <img width="200px" src="http://192.169.189.202/gs/public/javascripts/output_images/{{session('printeds')[0][$i]->original_src}}.png" style="max-width:100%;max-height:100%; border-radius: 5px;" id="img-logo">
                         <h4>{{ucwords(str_replace('-', ' ', session('printeds')[0][$i]->media_slug))}} - Izdanje {{session('printeds')[0][$i]->broj_izdanja}}</h4>
                         <p>Objavljeno: {{session('printeds')[0][$i]->created_at}}</p>
                         <?php

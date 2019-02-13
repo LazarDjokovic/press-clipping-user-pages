@@ -58,11 +58,6 @@
 
                         <div class="form-group row">
                             <div class="col-md-6">
-                                @if (Route::has('password.request'))
-                                    <a style="float:right; color:white !important;" class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 

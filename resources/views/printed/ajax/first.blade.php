@@ -1,6 +1,6 @@
 @foreach($printeds as $printed)
     <div class="col-sm-6 col-md-2 col-lg-2 media-image text-center" style="margin-top: 40px;">
-        <img width="200px" src="/images/book.jpg" style="max-width:100%;max-height:100%; border-radius: 5px;" id="img-logo">
+        <img width="200px" src="http://192.169.189.202/gs/public/javascripts/output_images/{{$printed['original_src']}}.png" style="max-width:100%;max-height:100%; border-radius: 5px;" id="img-logo">
         <h4>{{ucwords(str_replace('-', ' ', $printed->media_slug))}} - Izdanje {{$printed->broj_izdanja}}</h4>
         <p>Objavljeno: {{$printed->created_at}}</p>
         <?php
