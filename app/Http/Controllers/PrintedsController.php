@@ -190,7 +190,7 @@ class PrintedsController extends Controller
             ->where('created_at','<=',$now)
             ->where('stage',31)
             ->whereBetween('created_at',[$created_at_from,$created_at_to])
-            ->paginate(10);
+            ->get();
 
 
         //dd($printeds_view_session);
