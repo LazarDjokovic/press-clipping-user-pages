@@ -37,7 +37,7 @@
              width: 7px;
              border-radius: 50%;
              display: inline-block;
-             background-color:#E64C66;
+             background-color:#F75D77;
          }
 
         .dot2 {
@@ -45,7 +45,7 @@
             width: 7px;
             border-radius: 50%;
             display: inline-block;
-            background-color:#FFAB00;
+            background-color:#FFBC11;
         }
 
         .dot3 {
@@ -53,7 +53,7 @@
             width: 7px;
             border-radius: 50%;
             display: inline-block;
-            background-color:#00BFDC;
+            background-color:#11D0ED;
         }
 
         .dot4 {
@@ -63,6 +63,28 @@
             display: inline-block;
             background-color:#7974D0;
         }
+
+        .header{
+            padding: 0px !important;
+            min-height: 0 !important;
+        }
+
+        .top-nav ul.top-menu > li > a{
+            padding: 15px !important;
+        }
+
+        .circle{
+            width:20px;
+            height:20px;
+            border-radius: 10px;
+            padding: 5px;
+            background-color: white;
+        }
+        .caret{
+            position: relative;
+            text-align: center;
+        }
+
 
     </style>
 

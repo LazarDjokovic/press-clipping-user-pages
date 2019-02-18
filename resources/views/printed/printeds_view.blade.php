@@ -40,11 +40,11 @@
                     <div class="row" style="margin-left: 0px !important; margin-right: 0px !important;">
                         <div class="col-xs-9" style="padding: 0px;">
                             <h1 style="color: #062945 !important; font-family: 'Anton';">{{$printed['naslov']}}</h1>
-                            <h4 style="color: #BB7DE8 !important;">{{$printed['podnaslov']}}</h4>
-                            <h4 style="color:#FFAB00 !important;">Nađenje klučne reči: <strong>{{$printed['found_keywords']}}</strong></h4>
+                            <h4 style="color: gray !important;">{{$printed['podnaslov']}}</h4>
+                            <h4 style="color:#FFAB00 !important;"> <strong>Nađenje klučne reči : {{$printed['found_keywords']}}</strong></h4>
                         </div>
                         <div class="col-xs-3" style="padding: 0 !important;">
-                            <a href="http://192.169.189.202/gs/public/javascripts/output_images/{{substr($printed['single_page_src'], 0, -4)}}.jpg" target="_blank"><p style="text-align: right;"><img src="http://192.169.189.202/gs/public/javascripts/output_images/{{substr($printed['single_page_src'], 0, -4)}}.jpg" style="width:100px;" /></p></a>
+                            <a href="http://192.169.189.202/gs/public/javascripts/output_archive/{{$printed['single_page_src']}}" target="_blank"><p style="text-align: right;"><img src="http://192.169.189.202/gs/public/javascripts/output_images/{{substr($printed['single_page_src'], 0, -4)}}.jpg" style="width:100px;" /></p></a>
                         </div>
                     </div>
                     <div class="row">
