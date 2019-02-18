@@ -16,7 +16,7 @@
 
         <!--main content start-->
         <section id="main-content">
-            <section class="wrapper">
+            <section class="wrapper" style="padding-top: 0 !important;">
                 @yield('content')
             </section>
         </section>

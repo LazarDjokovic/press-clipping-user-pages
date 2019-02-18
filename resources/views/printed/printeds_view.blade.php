@@ -84,8 +84,8 @@
     <script>
         $(document).ready(function () {
             var chars = 500;
-            var moretext = "<br/><button type=\"button\" class=\"btn btn-primary pull-right\" style=\"background-color: #337ab7; border-color: #2e6da4;\">Prikaži više</button>";
-            var lesstext = "<br/><button type=\"button\" class=\"btn btn-primary pull-right\" style=\"background-color: #337ab7; border-color: #2e6da4;\">Prikaži manje</button>";
+            var moretext = "<br/><button type=\"button\" class=\"btn btn-primary pull-right prikazi-vise\" style=\";background-color: #337ab7; border-color: #2e6da4;\">Prikaži više</button>";
+            var lesstext = "<br/><button type=\"button\" class=\"btn btn-primary pull-right prikazi-manje\" style=\";background-color: #337ab7; border-color: #2e6da4;\">Prikaži manje</button>";
             $('.more').each(function () {
                 var content = $(this).html();
                 if (content.length > chars) {

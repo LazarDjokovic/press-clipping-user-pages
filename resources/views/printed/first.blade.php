@@ -45,7 +45,7 @@
                         </div>
 
 
-                        <button style="margin-left: 80px" type="submit" class="btn btn-primary" style="margin-top:3px;">Pretraži</button>
+                        <button style="margin-left: 80px; background-color: #337ab7; border-color: #2e6da4;" type="submit" class="btn btn-primary pretrazi" style="margin-top:3px; background-color: #337ab7; border-color: #2e6da4;">Pretraži</button>
                         <div class="form-group">
                             @if(session('printeds'))
                                 <?php
@@ -96,7 +96,7 @@
                         </div>
 
 
-                        <button style="margin-left: 80px" type="submit" class="btn btn-primary" style="margin-top:3px">Pretraži</button>
+                        <button style="margin-left: 80px;  background-color: #337ab7; border-color: #2e6da4;" type="submit" class="btn btn-primary pretrazi" style="margin-top:3px; background-color: #337ab7; border-color: #2e6da4;">Pretraži</button>
                         <div class="form-group">
                             @if(session('printeds'))
                                 <?php

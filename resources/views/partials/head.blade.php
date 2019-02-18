@@ -85,6 +85,41 @@
             text-align: center;
         }
 
+        .prikazi-vise:hover{
+            color:white !important;
+        }
+
+        .prikazi-manje:hover{
+            color:white !important;
+        }
+
+        .pretrazi:hover{
+            color:white !important;
+        }
+
+        .prikazi-vise:active{
+            color:white !important;
+        }
+
+        .prikazi-manje:active{
+            color:white !important;
+        }
+
+        .pretrazi:active{
+            color:white !important;
+        }
+
+        .prikazi-vise:focus{
+            color:white !important;
+        }
+
+        .prikazi-manje:focus{
+            color:white !important;
+        }
+
+        .pretrazi:focus{
+            color:white !important;
+        }
 
     </style>
 
