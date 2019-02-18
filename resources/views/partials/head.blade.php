@@ -25,6 +25,7 @@
 
 
 
+
     <style>
         .linkovi:hover{
             background-color: #16A4FA !important;
@@ -101,6 +102,8 @@
     <style>
 
     </style>
+
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
     <!-- =======================================================
       Theme Name: NiceAdmin
       Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/

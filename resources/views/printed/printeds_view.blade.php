@@ -4,15 +4,16 @@
 
     <div class="jumbotron" style="background-color:#EEF1F8;padding-top:0px !important; margin-bottom:0px !important;padding-bottom:0px">
         <div class="row">
-            <div class="col-sm-12">
-                <h3 style="padding:15px;">Štampane novosti: <strong style="color:#3660D9">{{ucwords(str_replace('-', ' ', session('printeds_view')[0]->media_slug))}} / Izdanje {{session('printeds_view')[0]->broj_izdanja}} / {{session('printeds_view')[0]->created_at->format('Y-m-d')}}</strong></h3>
+            <div class="col-sm-6">
+                <h4 style="padding:15px;">Štampane novosti: <strong style="color:#3660D9">{{ucwords(str_replace('-', ' ', session('printeds_view')[0]->media_slug))}} / Izdanje {{session('printeds_view')[0]->broj_izdanja}} / {{session('printeds_view')[0]->created_at->format('Y-m-d')}}</strong></h4>
 
 
+            </div>
+            <div class="col-sm-6">
                 <form action="{{route('printeds_back')}}" method="POST">
                     @csrf
-                    <button style="margin: 15px;" type="submit" class="btn btn-primary">Nazad</button>
+                    <p style="text-align: right;"><button style="margin: 15px; background-color: #337ab7; border-color: #2e6da4;" type="submit" class="btn btn-primary">Nazad</button></p>
                 </form>
-
             </div>
 
         </div>
@@ -35,27 +36,32 @@
         @if(session('printeds_view'))
 
             @foreach(session('printeds_view') as $printed)
-                <div class="col-xs-10" style="border-top: 2px solid gray; border-right: 2px solid gray; border-radius: 5px; margin-bottom: 30px;">
+                <div class="col-xs-10" style="padding: 10px; border-top: 1px solid silver;border-left: 1px solid silver;border-bottom: 1px solid silver; border-right: 3px solid silver; border-radius: 5px; margin-bottom: 30px;">
                     <div class="row" style="margin-left: 0px !important; margin-right: 0px !important;">
-                        <div class="col-xs-9">
-                            <h1 style="color: #062945 !important;"><strong>{{$printed['naslov']}}</strong></h1>
+                        <div class="col-xs-9" style="padding: 0px;">
+                            <h1 style="color: #062945 !important; font-family: 'Anton';">{{$printed['naslov']}}</h1>
                             <h4 style="color: #BB7DE8 !important;">{{$printed['podnaslov']}}</h4>
+                            <h4 style="color:#FFAB00 !important;">Nađenje klučne reči: <strong>{{$printed['found_keywords']}}</strong></h4>
                         </div>
-                        <div class="col-xs-3">
-                            <a href="http://192.169.189.202/gs/public/javascripts/output_images/{{substr($printed['single_page_src'], 0, -4)}}.jpg" target="_blank"><img src="http://192.169.189.202/gs/public/javascripts/output_images/{{substr($printed['single_page_src'], 0, -4)}}.jpg" style="width:100px;"></a>
+                        <div class="col-xs-3" style="padding: 0 !important;">
+                            <a href="http://192.169.189.202/gs/public/javascripts/output_images/{{substr($printed['single_page_src'], 0, -4)}}.jpg" target="_blank"><p style="text-align: right;"><img src="http://192.169.189.202/gs/public/javascripts/output_images/{{substr($printed['single_page_src'], 0, -4)}}.jpg" style="width:100px;" /></p></a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <h4 style="color:#FFAB00 !important;">Nađenje klučne reči: <strong>{{$printed['found_keywords']}}</strong></h4>
+
 
 
                             <div class="comment more">
-                                <?php
+                               <p style="font-size: 18px; color:black;">
+
+                                   <?php
                                     //$text = explode('</div>',$printed['text']);
                                     //echo $text[1];
-                                    echo $printed['new_text'];
-                                ?>
+                                        echo $printed['new_text'];
+                                    ?>
+
+                               </p>
                             </div>
                             <div class="buttons_action">
                                 <button style="margin-right:15px" form="izdvoji_pdf_stampani" type="submit" class="btn btn-secondary pull-right">Štampaj PDF</button>
@@ -78,8 +84,8 @@
     <script>
         $(document).ready(function () {
             var chars = 500;
-            var moretext = "<br/><button type=\"button\" class=\"btn btn-primary pull-right\">Prikaži više</button>";
-            var lesstext = "<br/><button type=\"button\" class=\"btn btn-primary pull-right\">Prikaži manje</button>";
+            var moretext = "<br/><button type=\"button\" class=\"btn btn-primary pull-right\" style=\"background-color: #337ab7; border-color: #2e6da4;\">Prikaži više</button>";
+            var lesstext = "<br/><button type=\"button\" class=\"btn btn-primary pull-right\" style=\"background-color: #337ab7; border-color: #2e6da4;\">Prikaži manje</button>";
             $('.more').each(function () {
                 var content = $(this).html();
                 if (content.length > chars) {
