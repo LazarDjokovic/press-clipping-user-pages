@@ -15,28 +15,7 @@
             <li class="sub-menu">
                 <a class="linkovi" href="/radio" style="font-size:12px;border: 0px !important;"><i class="fa fa-bullhorn" style="color:#FFF;"></i> Radio novosti</a>
             </li>
-
-
-
-            <hr style="margin-top:20px; background-color:#192121; border: 1px solid #29243E; height:5px;">
-
-
-            <li class="sub-menu">
-               <a class="linkovi" href="#" style="font-size:12px;border: 0px !important;"> <span class="dot1"></span> &nbsp&nbsp Najčitanije novosti </a>
-            </li>
-
-            <li class="sub-menu">
-                <a class="linkovi" href="#" style="font-size:12px;border: 0px !important;"> <span class="dot2"></span> &nbsp&nbsp Najpopularnije novosti </a>
-            </li>
-
-            <li class="sub-menu">
-                <a class="linkovi" href="#" style="font-size:12px;border: 0px !important;"> <span class="dot3"></span> &nbsp&nbsp Najnovije novosti </a>
-            </li>
-
-            <li class="sub-menu">
-                <a class="linkovi" href="#" style="font-size:12px;border: 0px !important;"> <span class="dot4"></span> &nbsp&nbsp Nepopularne novosti </a>
-            </li>
-
+            
 
 
             <hr style="margin-top:20px; background-color:#192121; border: 1px solid #29243E; height:5px;">
