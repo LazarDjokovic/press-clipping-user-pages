@@ -15,6 +15,7 @@
                 <?php
                 use Carbon\Carbon;
                 $carbon = new Carbon();
+                $start_date = Carbon::createFromFormat('m-d-Y', '12-31-2018');
                 $carbonFormat = $carbon->format('Y-m-d');
                 ?>
                 @if(session('search_data'))
@@ -73,7 +74,7 @@
                         @csrf
                         <div class="form-group block">
 
-                            Od: <input type="date" class="form-control fromDate" id="from" name="from" style="width:200px;" value="{{ $carbonFormat }}">
+                            Od: <input type="date" class="form-control fromDate" id="from" name="from" style="width:200px;" value="{{$start_date->format('Y-m-d') }}">
 
 
                         </div>
@@ -201,6 +202,8 @@
 
                 var numItems = $('.media-image').length;
 
+                var pathname = window.location.pathname;
+
                 $.ajax({
                     type:'POST',
                     url:'/printeds/search_ajax',
@@ -208,7 +211,8 @@
                         'from': fromDate,
                         'to' : toDate,
                         'publisher' : publisher,
-                        'numItems' : numItems
+                        'numItems' : numItems,
+                        'pathname' : pathname
                     },
                     headers:{
                         'X-CSRF-Token' : token,
@@ -217,7 +221,7 @@
                     },
                     success:function (data) {
                         var number = $(data).filter(".media-image").length;
-                        if(number < 4)
+                        if(number < 10)
                             $( ".read-more" ).hide();
                         else
                             $( ".read-more" ).show();
@@ -229,7 +233,7 @@
                         }
 
                         $('#load-more-items').append(data);
-                        //console.log(data);
+                        console.log(data);
                     },
                     error: function(xhr, status, error) {
                         console.log(error);
