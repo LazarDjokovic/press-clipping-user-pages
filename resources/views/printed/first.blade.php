@@ -229,7 +229,7 @@
                         }
 
                         $('#load-more-items').append(data);
-                        //console.log(data);
+                        console.log(data);
                     },
                     error: function(xhr, status, error) {
                         console.log(error);

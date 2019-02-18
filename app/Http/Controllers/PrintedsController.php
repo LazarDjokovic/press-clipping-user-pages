@@ -22,6 +22,49 @@ class PrintedsController extends Controller
     {
         $media = Media::all();
 
+        $now = Carbon::now();
+
+        if(session()->has('printeds'))
+            session()->forget('printeds');
+
+        if(session()->has('printeds_view'))
+            session()->forget('printeds_view');
+
+        if(session()->has('search_data'))
+            session()->forget('search_data');
+
+
+        /*$printeds[0] = Printed::where([
+            'stage' => 31,
+            'company_id' => auth()->user()->company_id
+        ])->take(10)->get();*/
+
+        $printeds[0] = DB::table('printeds')
+            ->join('companies', 'companies.id', '=', 'printeds.company_id')
+            ->select(DB::raw(" media_slug, count(*) as objave, companies.name as company_name, DATE(printeds.created_at) as created_at, broj_izdanja, company_id, original_src"))
+            ->where([
+                'printeds.stage' => 31,
+                'company_id' => auth()->user()->company_id
+            ])
+            ->where('printeds.created_at','<=', $now)
+            ->groupBy('media_slug', 'created_at', 'printeds.stage', 'broj_izdanja', 'company_id', 'original_src', 'companies.name')
+            ->havingRaw("count(*) > 0")
+            ->take(10)
+            ->get();
+
+
+
+        $read = [];
+        for ($i = 0; $i < count($printeds[0]); $i++){
+            $read[$i] = DB::select("SELECT COUNT(DISTINCT printed_id) as procitani FROM printeds_read WHERE user_id = '".auth()->user()->id."' AND company_id = '".auth()->user()->company_id."' AND broj_izdanja = '".$printeds[0][$i]->broj_izdanja."' AND media_slug = '".$printeds[0][$i]->media_slug."'");
+            $printeds[0][$i]->procitani = $read[$i][0]->procitani;
+        }
+
+        //dd($printeds);
+
+        Session::put('printeds',$printeds);
+
+        //dd(\session('printeds'));
 
         return view('printed.first',compact('media'));
     }
