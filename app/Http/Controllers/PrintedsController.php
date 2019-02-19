@@ -208,7 +208,7 @@ class PrintedsController extends Controller
         //dd($printeds_view);
 
 
-        if($neprocitani == 1){
+        if($neprocitani != 0){
             $printeds_array = [];
 
             for($i=0; $i<count($printeds_view); $i++){
@@ -253,7 +253,7 @@ class PrintedsController extends Controller
 
 
 
-        return view('printed.printeds_view',compact('printeds_view'));
+        return view('printed.printeds_view',compact('printeds_view','neprocitani'));
     }
 
     public function back(Request $request)

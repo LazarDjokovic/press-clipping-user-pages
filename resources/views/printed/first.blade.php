@@ -131,7 +131,7 @@
                             $neprocitani =  session('printeds')[0][$i]->objave - session('printeds')[0][$i]->procitani;
                         ?>
                         @if($neprocitani > 0)
-                            <a href="/printeds/view/{{session('printeds')[0][$i]->media_slug}}/{{session('printeds')[0][$i]->broj_izdanja}}/{{session('printeds')[0][$i]->created_at}}/1" style="color:#FFAB00;">Nepročitane objave ({{$neprocitani}})</a>
+                            <a href="/printeds/view/{{session('printeds')[0][$i]->media_slug}}/{{session('printeds')[0][$i]->broj_izdanja}}/{{session('printeds')[0][$i]->created_at}}/{{$neprocitani}}" style="color:#FFAB00;">Nepročitane objave ({{$neprocitani}})</a>
                         @else
                             <a href="/printeds/view/{{session('printeds')[0][$i]->media_slug}}/{{session('printeds')[0][$i]->broj_izdanja}}/{{session('printeds')[0][$i]->created_at}}/0">Sve objave pročitane({{ session('printeds')[0][$i]->objave }})</a>
                         @endif
@@ -147,7 +147,7 @@
                         $neprocitani =  session('printeds')[0][$i]->objave - session('printeds')[0][$i]->procitani;
                         ?>
                         @if($neprocitani > 0)
-                            <a href="/printeds/view/{{session('printeds')[0][$i]->media_slug}}/{{session('printeds')[0][$i]->broj_izdanja}}/{{session('printeds')[0][$i]->created_at}}/1" style="color:#FFAB00;">Nepročitane objave ({{$neprocitani}})</a>
+                            <a href="/printeds/view/{{session('printeds')[0][$i]->media_slug}}/{{session('printeds')[0][$i]->broj_izdanja}}/{{session('printeds')[0][$i]->created_at}}/{{$neprocitani}}" style="color:#FFAB00;">Nepročitane objave ({{$neprocitani}})</a>
                         @else
                             <a href="/printeds/view/{{session('printeds')[0][$i]->media_slug}}/{{session('printeds')[0][$i]->broj_izdanja}}/{{session('printeds')[0][$i]->created_at}}/0">Sve objave pročitane({{ session('printeds')[0][$i]->objave }})</a>
                         @endif

@@ -141,7 +141,7 @@ class DigitalsController extends Controller
         $created_at_from = $created_at . ' 00:00:00';
         $created_at_to = $created_at . ' 23:59:59';
 
-        if($neprocitani == 1){
+        if($neprocitani != 0){
 
             $digitals_view = DB::select('SELECT *, DATE(created_at) as created_at FROM digitals WHERE media_slug = "'.$media_slug.'" 
                                             AND company_id = "'.auth()->user()->company_id.'"
@@ -191,7 +191,7 @@ class DigitalsController extends Controller
 
 
 
-        return view('digital.digitals_view',compact('printeds_view'));
+        return view('digital.digitals_view',compact('printeds_view','neprocitani'));
         //return view('testing.digitals.digitals_view',compact('printeds_view'));
     }
 
@@ -216,6 +216,7 @@ class DigitalsController extends Controller
 
         Session::put('digitals',$digitals);
 
+        //dd($digitals);
         //dd(session('search_data'));
 
         $media = Media::all();
