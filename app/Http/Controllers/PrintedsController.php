@@ -236,6 +236,7 @@ class PrintedsController extends Controller
             ->whereBetween('created_at',[$created_at_from,$created_at_to])
             ->get();
 
+        $broj_procitanih_objava = count($printeds_view_session);
 
         //dd($printeds_view_session);
 
@@ -253,7 +254,7 @@ class PrintedsController extends Controller
 
 
 
-        return view('printed.printeds_view',compact('printeds_view','neprocitani'));
+        return view('printed.printeds_view',compact('printeds_view','neprocitani', 'broj_procitanih_objava'));
     }
 
     public function back(Request $request)

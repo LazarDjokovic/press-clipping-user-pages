@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-sm-10">
                 @if($neprocitani == 0)
-                    <h4 style="padding:15px;">Štampane novosti: <strong style="color:#3660D9">{{ucwords(str_replace('-', ' ', session('printeds_view')[0]->media_slug))}} / Izdanje {{session('printeds_view')[0]->broj_izdanja}} / {{session('printeds_view')[0]->created_at->format('Y-m-d')}}</strong></h4>
+                    <h4 style="padding:15px;">Štampane novosti: <strong style="color:#3660D9">{{ucwords(str_replace('-', ' ', session('printeds_view')[0]->media_slug))}} / Izdanje {{session('printeds_view')[0]->broj_izdanja}} / {{session('printeds_view')[0]->created_at->format('Y-m-d')}} / Pročitane objave ({{$broj_procitanih_objava}})</strong></h4>
                 @else
                     <h4 style="padding:15px;">Štampane novosti: <strong style="color:#3660D9">{{ucwords(str_replace('-', ' ', session('printeds_view')[0]->media_slug))}} / Izdanje {{session('printeds_view')[0]->broj_izdanja}} / {{session('printeds_view')[0]->created_at->format('Y-m-d')}} / <span style="color:#FFAB00;">Nepročitane objave ({{$neprocitani}})</span></strong></h4>
                 @endif
