@@ -21,19 +21,17 @@
                 @if(session('search_data'))
                      <form class="form-inline" action="{{route('printeds_search')}}" method="POST">
                         @csrf
-                        <div class="form-group block">
-
-                            Od: <input type="date" class="form-control fromDate" id="from" name="from" style="width:200px;" value="{{ session('search_data')['from'] }}">
-
-
+                        <div class="form-group block" style="margin-right: 30px;">
+                            Od: <input type="date" class="form-control fromDate" id="from" name="from" style="width:200px !important;" value="{{ session('search_data')['from'] }}">
                         </div>
-                        <div style="margin-left: 70px;" class="form-group">
+                        <div class="form-group block" style="margin-right: 50px;">
 
-                            Do: <input class="form-control toDate" type="date" name="to" style="width:200px;" value="{{ session('search_data')['to'] }}">
+                            Do: <input class="form-control toDate" type="date" id="to" name="to" style="width:200px !important;" value="{{ session('search_data')['to'] }}">
                         </div>
-                        <div class="form-group" style="margin-left: 50px;">
 
-                            <select  name="publisher" class="form-control publisher" id="sel2">
+                        <div class="form-group">
+
+                            <select  name="publisher" class="form-control publisher" id="sel2" style="width:200px !important; margin-right: 50px;">
                                 <option selected value="svi">Sve novine</option>
                                 @foreach($media as $oneMedia)
                                     @if($oneMedia->slug == session('search_data')['publisher'])
@@ -45,8 +43,8 @@
                         </div>
 
 
-                        <button style="margin-left: 80px; background-color: #337ab7; border-color: #2e6da4;" type="submit" class="btn btn-primary pretrazi" style="margin-top:3px; background-color: #337ab7; border-color: #2e6da4;">Pretraži</button>
-                        <div class="form-group">
+                        <button style="background-color: #337ab7; border-color: #2e6da4; margin-right: 50px;" type="submit" class="btn btn-primary pretrazi" style="margin-top:3px; background-color: #337ab7; border-color: #2e6da4;">Pretraži</button>
+                        <div class="form-group br-objava">
                             @if(session('printeds'))
                                 <?php
                                 $objave = 0;
@@ -55,10 +53,10 @@
                                 }
                                 ?>
 
-                                <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: <span id="prikaz-objava">{{$objave}}</span></h3>
+                                <h3 style="margin-bottom: 15px;">Broj objava: <span id="prikaz-objava">{{$objave}}</span></h3>
                                 <input type="hidden" value="{{$objave}}" id="broj-objava">
                             @else
-                                <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: <span id="prikaz-objava">0</span></h3>
+                                <h3 style="margin-bottom: 15px;">Broj objava: <span id="prikaz-objava">0</span></h3>
                                 <input type="hidden" value="0" id="broj-objava">
                             @endif
 
@@ -72,19 +70,16 @@
                 @else
                     <form class="form-inline" action="{{route('printeds_search')}}" method="POST">
                         @csrf
-                        <div class="form-group block">
-
+                        <div class="form-group block" style="margin-right: 30px;">
                             Od: <input type="date" class="form-control fromDate" id="from" name="from" style="width:200px;" value="{{$start_date->format('Y-m-d') }}">
-
-
                         </div>
-                        <div style="margin-left: 70px;" class="form-group">
-
-                            Do: <input class="form-control toDate" type="date" name="to" style="width:200px;" value="{{ $carbonFormat }}">
+                        <div  class="form-group block" style="margin-right: 50px;">
+                            Do: <input class="form-control toDate" type="date" id="to" name="to" style="width:200px;" value="{{ $carbonFormat }}">
                         </div>
-                        <div class="form-group" style="margin-left: 50px;">
 
-                            <select  name="publisher" class="form-control publisher" id="sel2">
+                        <div class="form-group">
+
+                            <select  name="publisher" class="form-control publisher" id="sel2" style="width: 200px !important; margin-right: 50px;">
                                 <option selected value="svi">Sve novine</option>
                                 @foreach($media as $oneMedia)
                                     @if($oneMedia->slug == session('search_data')['publisher'])
@@ -96,8 +91,8 @@
                         </div>
 
 
-                        <button style="margin-left: 80px;  background-color: #337ab7; border-color: #2e6da4;" type="submit" class="btn btn-primary pretrazi" style="margin-top:3px; background-color: #337ab7; border-color: #2e6da4;">Pretraži</button>
-                        <div class="form-group">
+                        <button style="background-color: #337ab7; border-color: #2e6da4; margin-right: 50px;" type="submit" class="btn btn-primary pretrazi" style="margin-top:3px; background-color: #337ab7; border-color: #2e6da4;">Pretraži</button>
+                        <div class="form-group br-objava">
                             @if(session('printeds'))
                                 <?php
                                 $objave = 0;
@@ -105,10 +100,10 @@
                                     $objave += session('printeds')[0][$i]->objave;
                                 }
                                 ?>
-                                <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: <span id="prikaz-objava">{{$objave}}</span></h3>
+                                <h3 style="margin-bottom: 15px;">Broj objava: <span id="prikaz-objava">{{$objave}}</span></h3>
                                 <input type="hidden" value="{{$objave}}" id="broj-objava">
                             @else
-                                <h3 style="margin-bottom: 15px; padding-left:50px">Broj objava: <span id="prikaz-objava">0</span></h3>
+                                <h3 style="margin-bottom: 15px;">Broj objava: <span id="prikaz-objava">0</span></h3>
                                 <input type="hidden" value="0" id="broj-objava">
                             @endif
 
@@ -128,7 +123,7 @@
         @if(session('printeds'))
             @if(count(session('printeds')[0]) >= 10)
                 @for($i=0; $i<10; $i++)
-                    <div class="col-sm-6 col-md-2 col-lg-2 media-image text-center" style="margin-top: 40px;">
+                    <div class="col-lg-2 media-image text-center" style="margin-top: 40px;">
                         <img width="200px" src="http://192.169.189.202/gs/public/javascripts/output_images/{{session('printeds')[0][$i]->original_src}}.png" style="max-width:100%;max-height:100%; border-radius: 5px;" id="img-logo">
                         <h4>{{ucwords(str_replace('-', ' ', session('printeds')[0][$i]->media_slug))}} - Izdanje {{session('printeds')[0][$i]->broj_izdanja}}</h4>
                         <p>Objavljeno: {{session('printeds')[0][$i]->created_at}}</p>
@@ -144,7 +139,7 @@
                 @endfor
             @elseif(count(session('printeds')[0]) > 0 && count(session('printeds')[0]) < 10)
                 @for($i=0; $i<count(session('printeds')[0]); $i++)
-                    <div class="col-sm-6 col-md-2 col-lg-2 media-image text-center" style="margin-top: 40px;">
+                    <div class="col-lg-2 media-image text-center" style="margin-top: 40px;">
                         <img width="200px" src="http://192.169.189.202/gs/public/javascripts/output_images/{{session('printeds')[0][$i]->original_src}}.png" style="max-width:100%;max-height:100%; border-radius: 5px;" id="img-logo">
                         <h4>{{ucwords(str_replace('-', ' ', session('printeds')[0][$i]->media_slug))}} - Izdanje {{session('printeds')[0][$i]->broj_izdanja}}</h4>
                         <p>Objavljeno: {{session('printeds')[0][$i]->created_at}}</p>

@@ -9,13 +9,13 @@
     <div class="top-nav notification-row" style="margin-top: 0px !important;">
         <!-- notificatoin dropdown start-->
         <ul class="nav pull-right top-menu">
-            <li class="dropdown-item">
-                <a href="#" style="color:gray">Kako koristiti?</a>
+            <!--<li class="dropdown-item">
+                <a href="#" style="color:gray; font-size: 14px;">Kako koristiti?</a>
             </li>
 
             <li class="dropdown-item">
-                <a style="color:gray;" href="#">Naša podrška</a>
-            </li>
+                <a style="color:gray; font-size: 14px;" href="#">Naša podrška</a>
+            </li>-->
             <!-- alert notification end-->
             <!-- user login dropdown start-->
             @if(Auth::user())
