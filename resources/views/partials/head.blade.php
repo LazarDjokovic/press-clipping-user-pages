@@ -121,6 +121,17 @@
             color:white !important;
         }
 
+        .nazad:focus{
+            color:white !important;
+        }
+        .nazad:active{
+            color:white !important;
+        }
+        .nazad:hover{
+            color:white !important;
+        }
+
+
     </style>
 
     <!-- Bootstrap CSS

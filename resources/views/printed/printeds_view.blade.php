@@ -15,7 +15,7 @@
             <div class="col-sm-2">
                 <form action="{{route('printeds_back')}}" method="POST">
                     @csrf
-                    <p style="text-align: right;"><button style="margin: 15px; background-color: #337ab7; border-color: #2e6da4;" type="submit" class="btn btn-primary">Nazad</button></p>
+                    <p style="text-align: right;"><button style="margin: 15px; background-color: #337ab7; border-color: #2e6da4;" type="submit" class="btn btn-primary nazad">Nazad</button></p>
                 </form>
             </div>
 
