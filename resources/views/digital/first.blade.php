@@ -133,6 +133,7 @@
                         <p>Objavljeno: {{session('digitals')[0][$i]->created_at}}</p>
                         <?php
                         $neprocitani =  session('digitals')[0][$i]->objave - session('digitals')[0][$i]->procitani;
+
                         ?>
                         @if($neprocitani > 0)
                             <a href="/digitals/view/{{session('digitals')[0][$i]->media_slug}}/{{session('digitals')[0][$i]->created_at}}/{{$neprocitani}}" style="color:#FFAB00;">Nepročitane objave ({{$neprocitani}})</a>
@@ -152,7 +153,7 @@
                         @if($neprocitani > 0)
                             <a href="/digitals/view/{{session('digitals')[0][$i]->media_slug}}/{{session('digitals')[0][$i]->created_at}}/{{$neprocitani}}" style="color:#FFAB00;">Nepročitane objave ({{$neprocitani}})</a>
                         @else
-                            <a href="/digitals/view/{{session('digitals')[0][$i]->media_slug}}/{{session('digitals')[0][$i]->created_at}}/0">Sve objave pročitane({{ session('printeds')[0][$i]->objave }})</a>
+                            <a href="/digitals/view/{{session('digitals')[0][$i]->media_slug}}/{{session('digitals')[0][$i]->created_at}}/0">Sve objave pročitane({{ session('digitals')[0][$i]->objave }})</a>
                         @endif
                     </div>
                 @endfor

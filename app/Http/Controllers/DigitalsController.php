@@ -174,6 +174,7 @@ class DigitalsController extends Controller
             ->whereBetween('created_at',[$created_at_from,$created_at_to])
             ->get();
 
+        $broj_procitanih_objava = count($digitals_view_session);
 
         //dd($digitals_view_session);
 
@@ -191,7 +192,7 @@ class DigitalsController extends Controller
 
 
 
-        return view('digital.digitals_view',compact('printeds_view','neprocitani'));
+        return view('digital.digitals_view',compact('printeds_view','neprocitani','broj_procitanih_objava'));
         //return view('testing.digitals.digitals_view',compact('printeds_view'));
     }
 

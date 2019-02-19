@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-sm-12">
                 @if($neprocitani == 0)
-                    <h3 style="padding:15px;">Digitalne novosti: <strong style="color:#3660D9">{{ucwords(str_replace('-', ' ', session('digitals_view')[0]->media_slug))}} / {{session('digitals_view')[0]->created_at->format('Y-m-d')}}</strong></h3>
+                    <h3 style="padding:15px;">Digitalne novosti: <strong style="color:#3660D9">{{ucwords(str_replace('-', ' ', session('digitals_view')[0]->media_slug))}} / {{session('digitals_view')[0]->created_at->format('Y-m-d')}} / Pročitane objave ({{$broj_procitanih_objava}})</strong></h3>
                 @else
                     <h3 style="padding:15px;">Digitalne novosti: <strong style="color:#3660D9">{{ucwords(str_replace('-', ' ', session('digitals_view')[0]->media_slug))}} / {{session('digitals_view')[0]->created_at->format('Y-m-d')}} / <span style="color:#FFAB00;">Nepročitane objave ({{$neprocitani}})</span></strong></h3>
                 @endif
